@@ -1,0 +1,296 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--pale-lilac);
+    box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
+    z-index: 100;
+}
+
+.nav {
+    height: var(--header-height);
+    
+    &__data {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__logo {
+        display: inline-flex;
+        align-items: center;
+
+        img {
+            height: 7rem;
+        }
+    }
+
+    &__toggle {
+        position: relative;
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+
+    &__burger,
+    &__close {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        color: var(--dark-slate);
+        font-size: 2rem;
+        cursor: pointer;
+        transition: opacity .1s, transform .4s;
+    }
+
+    &__close {
+        opacity: 0;
+    }
+
+    &__link {
+        color: var(--dark-slate);
+        font-weight: var(--font-semi-bold);
+        padding: 2rem 2.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color .3s;
+
+        &:hover {
+            background-color: var(--muted-plum);
+            color: var(--pure-white);
+        }
+
+        &.active {
+            color: var(--pure-white);
+            background-color: var(--deep-plum);
+        }
+    }
+
+    &__social {
+        display: flex;
+        column-gap: 1.6rem;
+        padding: 2rem 1.6rem;
+
+        &-link {
+            color: var(--deep-plum);
+            font-size: 2.8rem;
+            transition: transform .2s ease-out;
+
+            &:hover {
+                color: var(--soft-rose);
+            }
+        }
+    }
+}
+
+/* Show icon */
+.show-icon {
+    .nav__burger {
+        opacity: 0;
+        transform: rotate(90deg);
+    }
+
+    .nav__close {
+        opacity: 1;
+        transform: rotate(90deg);
+    }
+}
+
+/*=============== DROPDOWN ===============*/
+.dropdown {
+    &__item {
+        cursor: pointer;
+
+        &:hover {
+            .dropdown__menu {
+                max-height: 1000px;
+                transition: max-height .4s ease-in;
+            }
+
+            .dropdown__arrow {
+                transform: rotate(180deg);
+            }
+        }
+    }
+    &__arrow {
+        font-size: 2rem;
+        font-weight: initial;
+        transition: transform .4s;
+    }
+
+    &__menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .4s ease-out;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        column-gap: 0.8rem;
+        padding: 2rem 2rem 2rem 4rem;
+        color: var(--white-color);
+        font-weight: var(--font-semi-bold);
+        transition: background-color .3s;
+
+        &:hover {
+            background-color: var(--muted-plum);
+            color: var(--pure-white);
+        }
+    }
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media (max-width: 340px) {
+    .container {
+        margin-inline: 1.6rem;
+    }
+
+    .nav__link {
+        padding-inline: 1.6rem;
+    }
+}
+
+// Navigation for mobile devices
+@media (max-width: 1280px) {
+    .nav {
+        &__menu {
+            position: absolute;
+            left: 0;
+            top: calc(var(--header-height) - 1rem);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: calc(100vh - var(--header-height));
+            overflow: auto;
+            pointer-events: none;
+            opacity: 0;
+            transition: top .4s, opacity .3s;
+            
+            &.show-menu {
+                opacity: 1;
+                top: var(--header-height);
+                pointer-events: initial;
+            }
+    
+            &::-webkit-scrollbar {
+                width: 0;
+            }
+        }
+    
+        &__list {
+            background-color: var(--pale-lilac);
+            padding-top: 1.6rem;
+        }
+    }
+
+}
+
+/* For large devices */
+@media (min-width: 1280px) {
+    .container {
+        margin-inline: auto;
+    }
+
+    .nav {
+        height: calc(var(--header-height) + 3.2rem);
+        display: flex;
+        justify-content: space-between;
+
+        &__data {
+            padding-left: 2.4rem;
+        }
+
+        &__logo img {
+            height: 8rem;
+        }
+
+        &__toggle {
+            display: none;
+        }
+
+        &__menu {
+            display: flex;
+            align-items: center;
+            column-gap: 5.6rem;
+            padding-right: 2.6rem;
+        }
+
+        &__list {
+            height: 100%;
+            display: flex;
+            column-gap: 4.8rem;
+        }
+
+        &__link {
+            height: 100%;
+            position: relative;
+            padding: 0;
+            justify-content: initial;
+            column-gap: 0.4rem;
+
+            &:hover {
+                background-color: transparent;
+                color: var(--soft-rose);
+            }
+
+            &:before {
+                content: "";
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 3px;
+                background: var(--deep-plum);
+                transform: scale(0);
+                transition: transform .3s ease;
+            }
+
+            &.active {
+                color: var(--soft-rose);
+                background-color: transparent;
+                &:before {
+                    transform: scale(1);
+                }
+            }
+        }
+
+        &__social {
+            padding: 0;
+        }
+    }
+    
+    .dropdown {
+        &__item {
+            position: relative;
+
+            &:hover .dropdown__menu {
+                opacity: 1;
+                top: calc(var(--header-height) + 3.2rem);
+                pointer-events: initial;
+                transition: top .3s;
+            }
+        }
+
+        &__menu {
+            max-height: initial;
+            min-width: max-content;
+            overflow: initial;
+            position: absolute;
+            left: 0;
+            top: calc(var(--header-height) + 4rem);
+            opacity: 0;
+            background-color: var(--pale-lilac);
+            box-shadow: 0 5px 15px -5px hsla(220, 32%, 8%, .3);
+            pointer-events: none;
+            transition: opacity .3s, top .3s;
+        }
+
+        &__link {
+            padding-inline: 1.6rem;
+        }
+    }
+}

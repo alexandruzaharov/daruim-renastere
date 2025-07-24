@@ -1,0 +1,28 @@
+:root{
+   --header-height: 8rem;
+
+   /*========== Colors ==========*/
+   /* Backgrounds */
+  --pastel-lavender: #D9C2DE; /* base for backgrounds */
+  --pure-white: #FFFFFF; /* primary background or light text */
+  --pale-lilac: #F8F1FA; /* secondary background */
+
+  /* Accents */
+  --deep-plum: #633A6E; /* main accent, from gradient */
+  --muted-plum: #A67BBF; /* for text or hover effects */
+  --soft-rose: #E45EA0; /* for hover effects or buttons */
+  --dark-slate: #2A1E33; /* text or strong accents */
+  --shadow-plum: #4A3A55; /* for shadows or borders */
+
+   /*========== Font and typography ==========*/
+   --body-font: 'Montserrat', sans-serif;
+   --normal-font-size: 1.5rem;
+
+	/*========== Font weight ==========*/
+   --font-regular: 400;
+   --font-semi-bold: 600;
+
+	/*========== z index ==========*/
+   --z-tooltip: 10;
+   --z-fixed: 100;
+}

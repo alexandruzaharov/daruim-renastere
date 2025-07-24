@@ -1,0 +1,111 @@
+<header class="header">
+  <nav class="nav container">
+    <div class="nav__data">
+      <a class="nav__logo" routerLink="/">
+        <img src="/images/daruimrenastere-logo-nav.webp" alt="Logo" />
+      </a>
+      <div (click)="toggleMenu()" [class.show-icon]="isMenuOpen" class="nav__toggle">
+        <ng-icon class="nav__burger" name="remixMenuLine"></ng-icon>
+        <ng-icon class="nav__close" name="remixCloseLine"></ng-icon>
+      </div>
+    </div>
+    <!--=============== NAV MENU ===============-->
+    <div [class.show-menu]="isMenuOpen" [class.no-transition]="isResizing" class="nav__menu">
+      <ul class="nav__list">
+        <li>
+          <a
+            class="nav__link"
+            [class.no-transition]="isResizing"
+            routerLink="/"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >Acasa</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [class.no-transition]="isResizing"
+            routerLink="/despre-noi"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >Despre Noi</a
+          >
+        </li>
+        <li class="dropdown__item">
+          <div class="nav__link">
+            Programe<ng-icon class="dropdown__arrow" name="remixArrowDownSLine"></ng-icon>
+          </div>
+          <ul class="dropdown__menu" [class.no-transition]="isResizing">
+            <li>
+              <a
+                class="dropdown__link"
+                [class.no-transition]="isResizing"
+                routerLink="/program-daruim-renastere"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active"
+              >Dăruim Renaștere</a>
+            </li>
+            <li>
+              <a
+                class="dropdown__link"
+                [class.no-transition]="isResizing"
+                routerLink="/darul-animalelor"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active"
+              >Darul Animalelor</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [class.no-transition]="isResizing"
+            routerLink="/testimoniale"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >Testimoniale</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [class.no-transition]="isResizing"
+            routerLink="/evenimente"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >Evenimente</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [class.no-transition]="isResizing"
+            routerLink="/contact"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >Contact</a
+          >
+        </li>
+        <li>
+          <a
+            class="nav__link"
+            [class.no-transition]="isResizing"
+            routerLink="/inscrie-te"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >Înscrie-te</a
+          >
+        </li>
+      </ul>
+      <div class="nav__social">
+        <a href="https://www.facebook.com/DaruimRenastere" target="_blank" class="nav__social-link">
+          <ng-icon name="remixFacebookFill"></ng-icon>
+        </a>
+        <a href="https://www.youtube.com/@daruimrenastere" target="_blank" class="nav__social-link">
+          <ng-icon name="remixYoutubeFill"></ng-icon>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
