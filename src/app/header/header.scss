@@ -234,7 +234,11 @@
 
             &:hover {
                 background-color: transparent;
-                color: var(--soft-rose);
+                color: var(--warm-mauve);
+
+                &:before {
+                    transform: scale(1);
+                }
             }
 
             &:before {
@@ -243,18 +247,15 @@
                 position: absolute;
                 bottom: 0;
                 left: 0;
-                height: 3px;
+                height: 2px;
                 background: var(--deep-plum);
                 transform: scale(0);
                 transition: transform .3s ease;
             }
 
             &.active {
-                color: var(--soft-rose);
+                color: var(--rich-burgundy);
                 background-color: transparent;
-                &:before {
-                    transform: scale(1);
-                }
             }
         }
 
@@ -287,6 +288,10 @@
             box-shadow: 0 5px 15px -5px hsla(220, 32%, 8%, .3);
             pointer-events: none;
             transition: opacity .3s, top .3s;
+            
+            &:hover .nav__link:before {
+                transform: scale(1);
+            }
         }
 
         &__link {
