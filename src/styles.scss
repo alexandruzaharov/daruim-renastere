@@ -1,4 +1,6 @@
 @forward 'styles/variables';
+@use '@angular/material' as mat;
+@include mat.app-background();
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -39,11 +41,30 @@
 // html, body { height: 100%; }
 
 html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+      tertiary: mat.$orange-palette,
+    )
+  ));
+
+  @include mat.button-overrides((
+    filled-label-text-font: var(--button-title-font),
+    filled-container-color: var(--muted-plum),
+    filled-container-shape: 0.5rem,
+    // filled-label-text-size: 1.8rem,
+    filled-label-text-weight: 600,
+  ));
+}
+
+html {
   font-size: 62.5%
 }
 
 body {
   font-family: var(--body-font);
+  font-weight: var(--font-regular);
   font-size: var(--normal-font-size);
   background-color: var(--pale-lilac);
   color: var(--dark-slate);
@@ -54,18 +75,31 @@ ul {
 }
 
 a {
+  font-family: var(--navigation-font);
   text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
+  font-family: var(--button-title-font);
+}
+
+h1, h2 {
+  font-weight: var(--font-bold);
+  font-size: 2.5rem;
+}
+
+h3, h4, h5, h6 {
+  font-weight: var(--font-semi-bold);
+  font-size: 1.5rem;
+}
+
+p {
+  font-weight: var(--font-regular);
 }
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
   max-width: 1450px;
-  margin-inline: 2.4rem;
 }
 
 .no-transition {

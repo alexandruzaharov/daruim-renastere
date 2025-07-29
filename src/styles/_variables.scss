@@ -12,17 +12,21 @@
   --muted-plum: #A67BBF; /* for text or hover effects */
   --rich-burgundy: #6D1241; /* for text - active state */
   --warm-mauve: #A63F6E; /* for text - hover state */
+  --vibrant-rose: #DE3B8E;
   --soft-rose: #E45EA0; /* for hover effects or buttons */
   --dark-slate: #2A1E33; /* text or strong accents */
   --shadow-plum: #4A3A55; /* for shadows or borders */
 
    /*========== Font and typography ==========*/
-   --body-font: 'Montserrat', sans-serif;
+   --body-font: 'Open Sans', sans-serif;
+   --navigation-font: 'Montserrat', sans-serif;
+   --button-title-font: 'Poppins', sans-serif;
    --normal-font-size: 1.5rem;
 
 	/*========== Font weight ==========*/
    --font-regular: 400;
    --font-semi-bold: 600;
+   --font-bold: 700;
 
 	/*========== z index ==========*/
    --z-tooltip: 10;

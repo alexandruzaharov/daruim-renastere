@@ -1,11 +1,15 @@
 .header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
-    background: var(--pale-lilac);
+    background-color: var(--pale-lilac);
     box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
     z-index: 100;
+}
+
+.container {
+    margin-inline: 2.4rem;
 }
 
 .nav {
@@ -164,7 +168,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            height: calc(100vh - var(--header-height));
+            height: calc(100svh - var(--header-height));
             overflow: auto;
             pointer-events: none;
             opacity: 0;
@@ -174,6 +178,7 @@
                 opacity: 1;
                 top: var(--header-height);
                 pointer-events: initial;
+                background-color: var(--pale-lilac);
             }
     
             &::-webkit-scrollbar {

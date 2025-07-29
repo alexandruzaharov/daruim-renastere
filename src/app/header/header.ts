@@ -26,6 +26,10 @@ export class Header {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  public closeMenu(): void {
+    this.isMenuOpen = false;
+  }
+
   @HostListener('window:resize')
   onResize() {
     if (!this.isResizing) {
