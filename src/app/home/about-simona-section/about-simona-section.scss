@@ -1,0 +1,51 @@
+.about-simona {
+  background: linear-gradient(135deg, var(--creamy-white), var(--soft-gold));
+}
+
+.container {
+  padding: 4rem 2rem 0;
+}
+
+.text-content {
+  text-align: center;
+}
+
+h2 {
+  color: var(--deep-plum);
+  margin-bottom: 1rem;
+}
+
+p {
+  color: var(--shadow-plum);
+  font-style: italic;
+}
+
+.image-content {
+  display: flex;
+}
+
+.simona-image {
+  max-width: 100%;
+}
+
+/* For large devices */
+@media (min-width: 1024px) {
+  .container {
+    display: flex;
+    padding-top: 0;
+  }
+
+  .text-content {
+    order: 2;
+    margin-top: 5rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+    margin: 3rem 0 2rem;
+  }
+  
+  .simona-image {
+    max-width: 450px;
+  }
+}
