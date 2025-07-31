@@ -33,6 +33,7 @@ h1 {
   &__discount {
     color: #FFFFFF;
     font-size: 1.7rem;
+    font-weight: var(--font-bold);
   }
 
   &__buttons {
@@ -63,7 +64,7 @@ swiper {
     background-repeat: no-repeat;
 
     &:nth-child(1) {
-      background-image: url("/images/EU Clary Sage 15 ml.webp");
+      background-image: url("/images/uleiuri-esentiale-1-scaled.webp");
       background-position: bottom center;
     }
     &:nth-child(2) {
@@ -95,10 +96,36 @@ swiper {
   }
 }
 
+/* Animations */
+.swiper-slide-visible {
+  h1 {
+    animation: fadeInFromRight 0.8s ease-out;
+  }
+  
+  .hero {
+    &__description,
+    &__discount,
+    &__buttons {
+      animation: fadeInFromBottom 1s ease-out;
+    }
+  }
+}
+
+@keyframes fadeInFromRight {
+  0% { opacity: 0; transform: translateX(50%); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInFromBottom {
+  0% { opacity: 0; transform: translateY(100px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 /* For large devices */
 @media (min-width: 1024px) {
   h1 {
     font-size: 6rem;
+    line-height: 6rem;
     margin-bottom: 10rem;
   }
 

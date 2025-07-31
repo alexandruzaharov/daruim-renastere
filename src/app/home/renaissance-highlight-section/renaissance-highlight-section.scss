@@ -1,0 +1,95 @@
+@use "@angular/material" as mat;
+
+.renaissance {
+  background: linear-gradient(
+    135deg,
+    var(--pale-lilac),
+    var(--pastel-lavender)
+  );
+}
+
+.container {
+  padding: 4rem 2rem;
+}
+
+.text-content {
+  padding: 0 1.5rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: var(--deep-plum);
+  line-height: 3rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: var(--muted-plum);
+  margin-bottom: 2rem;
+}
+
+p {
+  color: var(--dark-slate);
+}
+
+.action-button {
+  text-align: center;
+  padding: 1.2rem 0;
+}
+
+button {
+  margin: 1.2rem 0;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  @include mat.button-overrides(
+    (
+      filled-container-color: var(--vibrant-rose),
+    )
+  );
+
+  &:hover {
+    transform: scale(1.05);
+    @include mat.button-overrides(
+      (
+        filled-container-color: var(--soft-rose),
+      )
+    );
+  }
+}
+
+.image-content {
+  text-align: center;
+}
+
+img {
+  max-width: 220px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* For large devices */
+@media (min-width: 1024px) {
+  .container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .content {
+    width: 60%;
+  }
+
+  .text-content {
+    padding: 0 3rem;
+  }
+
+  .action-button {
+    text-align: initial;
+  }
+
+  .image-content {
+    flex: 1;
+  }
+
+  img {
+    max-width: 250px;
+  }
+}

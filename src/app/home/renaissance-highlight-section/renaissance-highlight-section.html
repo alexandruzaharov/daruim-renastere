@@ -1,0 +1,17 @@
+<section class="renaissance" aria-label="Sectiune Dăruim Renaștere" #section>
+    <div class="container">
+        <div class="content">
+            <h2 [@visibility]="{ value: sectionState, params: { transform: 'translateX(-50px)' } }">Deschide-ți Inima și Privește Înăuntru!</h2>
+            <div [@visibility]="{ value: sectionState, params: { transform: 'translateX(-50px)' } }" class="subtitle">O călătorie pentru suflet, minte și corp</div>
+            <div [@visibility]="{ value: sectionState, params: { transform: 'translateY(50px)' } }" class="text-content">
+                <p>Alătură-te programului <strong>Dăruim Renaștere</strong> și redescoperă-ți esența cu uleiurile esențiale doTERRA! Prin ghidare personalizată, mostre gratuite și o comunitate plină de inspirație, te susținem să-ți revitalizezi sănătatea și starea de bine. Fiecare lună aduce o temă unică, cu resurse practice și sesiuni care te conectează la natura ta interioară.</p>
+                <div class="action-button">
+                    <button mat-flat-button routerLink="/daruim-renastere">Pornește Călătoria</button>
+                </div>
+            </div>
+        </div>
+        <div class="image-content">
+            <img [@visibility]="{ value: sectionState, params: { transform: 'translateX(50px)' } }" src="/images/young-model-poses-camera-with-hand-near-her-face.webp" alt="Persoana cu uleiuri esențiale doTERRA" class="program-image">
+        </div>
+    </div>
+</section>
