@@ -1,8 +1,33 @@
 @use "@angular/material" as mat;
 
 h1 {
-  color: var(--pale-lilac);
-  font-size: 2.9rem;
+  color: var(--deep-plum);
+  font-size: 3rem;
+  line-height: 1.4;
+  font-weight: var(--font-regular);
+  text-align: center;
+}
+
+.hero__background {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  z-index: 1;
+  opacity: 0.9;
+
+  &.first-slide-bg {
+    background-image: url("/images/close-up-plastic-bottle-with-oil-rosemary.webp");
+  }
+
+  &.second-slide-bg {
+    height: 94%;
+    background-image: url("/images/portrait-hairy-spitz-looking-up-white-background.webp");
+  }
 }
 
 .hero {
@@ -11,27 +36,31 @@ h1 {
 
   &__content {
     position: relative;
-    z-index: 2;
-    height: 100%;
-    margin: 0 5rem;
+    z-index: 3;
+    height: fit-content;
+    padding: 3rem 2.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    text-align: center;
+    background: linear-gradient(
+      180deg,
+      var(--pale-lilac) 70%,
+      rgba(255, 255, 255, 0.01)
+    );
   }
 
   &__description,
   &__discount {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
   }
 
   &__description {
-    color: #ffffff;
+    color: var(--shadow-plum);
     font-size: 1.6rem;
+    margin: 2rem 0 1rem;
   }
 
   &__discount {
-    color: #FFFFFF;
+    color: var(--vibrant-rose);
     font-size: 1.7rem;
     font-weight: var(--font-bold);
   }
@@ -40,14 +69,23 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
     row-gap: 2rem;
   }
 }
 
-button:nth-child(2) {
+button {
+  min-width: 17rem;
+}
+
+button:nth-child(1) {
+  border: 2px solid var(--deep-plum);
+
   @include mat.button-overrides(
     (
-      filled-container-color: var(--vibrant-rose),
+      filled-container-color: transparent,
+      filled-label-text-color: var(--deep-plum),
     )
   );
 }
@@ -63,76 +101,47 @@ swiper {
     background-size: cover;
     background-repeat: no-repeat;
 
-    &:nth-child(1) {
-      background-image: url("/images/uleiuri-esentiale-1-scaled.webp");
-      background-position: bottom center;
-    }
-    &:nth-child(2) {
-      background-image: url("/images/cute-dog-with-costume-scaled.webp");
-      background-position: right center;
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.4) 25%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.4) 75%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-      z-index: 1;
-    }
-
     &.initializing {
       visibility: hidden;
     }
   }
 }
 
-/* Animations */
-.swiper-slide-visible {
-  h1 {
-    animation: fadeInFromRight 0.8s ease-out;
-  }
-  
-  .hero {
-    &__description,
-    &__discount,
-    &__buttons {
-      animation: fadeInFromBottom 1s ease-out;
-    }
-  }
-}
-
-@keyframes fadeInFromRight {
-  0% { opacity: 0; transform: translateX(50%); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInFromBottom {
-  0% { opacity: 0; transform: translateY(100px); }
-  100% { opacity: 1; transform: translateY(0); }
+.swiper-slide-prev,
+.swiper-slide-next {
+  opacity: 0 !important;
 }
 
 /* For large devices */
 @media (min-width: 1024px) {
   h1 {
     font-size: 6rem;
-    line-height: 6rem;
+    line-height: 1.2;
     margin-bottom: 10rem;
+  }
+
+  .hero__background {
+    background-position: bottom right;
+    
+    &.first-slide-bg {
+      background-image: url("/images/uleiuri-esentiale-1-scaled.webp");
+    }
+    &.second-slide-bg {
+      height: 100%;
+      background-image: url("/images/sideways-cute-small-dog.webp");
+    }
   }
 
   .hero {
     &__content {
-      max-width: 50vw;
+      max-width: 45vw;
+      height: 100%;
       justify-content: center;
+      background: linear-gradient(
+      90deg,
+      var(--pale-lilac) 30%,
+      rgba(255, 255, 255, 0.01)
+    );
     }
 
     &__description {
@@ -150,23 +159,11 @@ swiper {
 
       @include mat.button-overrides(
         (
-        //   filled-label-text-size: 2rem,
           filled-label-text-weight: 500,
-          filled-container-height: 50px
+          filled-container-height: 50px,
         )
       );
     }
-  }
-
-  swiper-slide::before {
-    width: 60%;
-    background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.3) 40%,
-      rgba(0, 0, 0, 0.2) 80%,
-      rgba(0, 0, 0, 0.1) 90%,
-      rgba(0, 0, 0, 0)
-    );
   }
 }
 

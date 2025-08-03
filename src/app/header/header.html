@@ -1,5 +1,5 @@
 <header class="header">
-  <nav class="nav container">
+  <nav class="nav container" [ngClass]="{'shrunk': isScrolled}">
     <div class="nav__data">
       <a class="nav__logo" routerLink="/">
         <img src="/images/daruimrenastere-logo-nav.webp" alt="Logo" />

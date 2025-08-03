@@ -15,6 +15,14 @@
 
 .nav {
     height: var(--header-height);
+
+    &.shrunk {
+        height: 7rem;
+
+        img {
+            height: 6rem;
+        }
+    }
     
     &__data {
         height: 100%;
@@ -162,10 +170,21 @@
 // Navigation for mobile devices
 @media (max-width: 1280px) {
     .nav {
+        &.shrunk {
+            .nav__menu {
+                top: 6rem;
+
+                &.show-menu {
+                    top: 7rem;
+                    min-height: calc(100svh - 7rem);
+                }
+            }
+        }
+
         &__menu {
             position: absolute;
             left: 0;
-            top: calc(var(--header-height) - 1rem);
+            top: 7rem;
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -178,6 +197,7 @@
             &.show-menu {
                 opacity: 1;
                 top: var(--header-height);
+                min-height: calc(100svh - 8rem);
                 pointer-events: initial;
                 background-color: var(--pale-lilac);
             }
@@ -205,6 +225,16 @@
         height: calc(var(--header-height) + 3.2rem);
         display: flex;
         justify-content: space-between;
+
+        &.shrunk {
+            .dropdown__menu {
+                top: 7.8rem
+            }
+            
+            .dropdown__item:hover .dropdown__menu {
+                top: 7rem;
+            }
+        }
 
         &__data {
             padding-left: 2.4rem;
