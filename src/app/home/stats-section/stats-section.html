@@ -1,0 +1,30 @@
+<section class="stats" aria-label="Statistici Dăruim Renaștere" #section>
+  <div class="container">
+    <div class="text-content">
+        <h2 [@visibility]="{ value: sectionState, params: { transform: 'translateY(-30px)' } }">
+          Am atins sufletele oamenilor
+        </h2>
+        <p [@visibility]="{ value: sectionState, params: { transform: 'translateY(30px)' } }">
+          Nu suntem doar noi cei care primim, ci și natura care ne susține existența și vindecarea pe acest pământ.
+        </p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item" [@visibility]="{ value: sectionState, params: { transform: 'translateX(-30px)' } }">
+        <span class="stat-number" #happyClients>{{ happyClients }}</span>
+        <span class="stat-label">Clienți fericiți</span>
+      </div>
+      <div class="stat-item" [@visibility]="{ value: sectionState, params: { transform: 'translateX(-30px)' } }">
+        <span class="stat-number" #yearsActive>{{ yearsActive }}</span>
+        <span class="stat-label">Ani de activitate</span>
+      </div>
+      <div class="stat-item" [@visibility]="{ value: sectionState, params: { transform: 'translateX(30px)' } }">
+        <span class="stat-number" #essentialOils>{{ essentialOils }}</span>
+        <span class="stat-label">Uleiuri esențiale</span>
+      </div>
+      <div class="stat-item" [@visibility]="{ value: sectionState, params: { transform: 'translateX(30px)' } }">
+        <span class="stat-number" #members>{{ members }}</span>
+        <span class="stat-label">Membri</span>
+      </div>
+    </div>
+  </div>
+</section>

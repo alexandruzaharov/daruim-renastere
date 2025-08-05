@@ -22,10 +22,17 @@ p {
 
 .image-content {
   display: flex;
+  justify-content: center;
 }
 
 .simona-image {
   max-width: 100%;
+}
+
+@media (min-width: 425px) {
+  .simona-image {
+    max-width: 43rem;
+  }
 }
 
 /* For large devices */
@@ -43,9 +50,5 @@ p {
   h2 {
     font-size: 3rem;
     margin: 3rem 0 2rem;
-  }
-  
-  .simona-image {
-    max-width: 450px;
   }
 }
