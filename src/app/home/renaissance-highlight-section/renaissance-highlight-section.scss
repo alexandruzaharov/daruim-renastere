@@ -35,11 +35,6 @@ p {
 button {
   margin: 1.2rem 0;
   transition: transform 0.3s ease, background-color 0.3s ease;
-  @include mat.button-overrides(
-    (
-      filled-container-color: var(--vibrant-rose),
-    )
-  );
 
   &:hover {
     transform: scale(1.05);

@@ -1,0 +1,87 @@
+@use "@angular/material" as mat;
+
+.testimonials {
+  background: linear-gradient(135deg, var(--pure-white), var(--pale-lilac));
+}
+
+.container {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  margin-top: 3rem;
+  text-align: center;
+  padding-inline: 2rem;
+  order: 1;
+}
+
+button {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    @include mat.button-overrides(
+      (
+        filled-container-color: var(--soft-rose),
+      )
+    );
+  }
+}
+
+h2 {
+  color: var(--deep-plum);
+  text-align: center;
+  padding-inline: 2rem;
+}
+
+swiper-container {
+  margin-top: 4rem;
+  --swiper-theme-color: var(--vibrant-rose);
+}
+
+.testimonial {
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--deep-plum);
+    max-width: 28rem;
+    min-height: 37rem;
+    padding: 2rem 1rem 3rem;
+    color: var(--pure-white);
+    border-radius: 0.5rem;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  &__author {
+    margin-top: 4.9rem;
+    font-size: 1.5rem;
+  }
+  &__image {
+    width: 150px;
+    height: 150px;
+    border: 8px solid var(--deep-plum);
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    top: -40px;
+    z-index: 2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .button-container {
+    order: initial;
+  }
+}

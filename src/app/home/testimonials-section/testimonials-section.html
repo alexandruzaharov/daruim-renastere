@@ -1,0 +1,37 @@
+<section class="testimonials" aria-label="Testimoniale Dăruim Renaștere">
+    <div class="container">
+        <h2>Ce spun oamenii despre noi?</h2>
+        <div class="button-container">
+            <button mat-flat-button routerLink="/testimoniale">Citește mai mult</button>
+        </div>
+        <swiper-container #swiper init="false">
+            <swiper-slide>
+                <div class="testimonial__item" #item>
+                    <div class="testimonial__content" [@visibility]="{ value: itemState, params: { transform: 'translateY(30px)' } }">
+                        <p class="testimonial__text">"Un grup cu multe informații sănătoase despre uleiuri esențiale pure cu grad terapeutic! O comunitate dedicată sănătății celor dragi si prin care  se aduce speranță acolo unde este mai mare nevoie."</p>
+                        <strong class="testimonial__author">- Geanina P. -</strong>
+                    </div>
+                    <img class="testimonial__image" src="/images/testimonial-geanina.webp" alt="Geanina P." [@visibility]="{ value: itemState, params: { transform: 'translateY(-40px)' } }">
+                </div>
+            </swiper-slide>
+            <swiper-slide>
+                <div class="testimonial__item">
+                    <div class="testimonial__content" [@visibility]="{ value: itemState, params: { transform: 'translateY(30px)' } }">
+                        <p class="testimonial__text">"Experiența mea cu Grupul Dăruim Renaștere a fost cu adevărat inspirațională. Am avut șansa să particip la evenimente organizate de ei și să văd impactul lor direct în viețile oamenilor."</p>
+                        <strong class="testimonial__author">- Adriana B. -</strong>
+                    </div>
+                    <img class="testimonial__image" src="/images/testimonial-adriana.webp" alt="Adriana B." [@visibility]="{ value: itemState, params: { transform: 'translateY(-40px)' } }">
+                </div>
+            </swiper-slide>
+            <swiper-slide>
+                <div class="testimonial__item">
+                    <div class="testimonial__content" [@visibility]="{ value: itemState, params: { transform: 'translateY(30px)' } }">
+                        <p class="testimonial__text">"Sunt profund impresionat de angajamentul membrilor din Grupul Dăruim Renaștere. Am avut privilegiul de a colabora cu ei în mai multe proiecte de voluntariat și pot spune că sunt cu adevărat pasionați de cauza lor."</p>
+                        <strong class="testimonial__author">- Bogdan C. -</strong>
+                    </div>
+                    <img class="testimonial__image" src="/images/testimonial-bogdan.webp" alt="Bogdan C." [@visibility]="{ value: itemState, params: { transform: 'translateY(-40px)' } }">
+                </div>
+            </swiper-slide>
+        </swiper-container>
+    </div>
+</section>

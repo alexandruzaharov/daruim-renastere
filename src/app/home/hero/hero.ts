@@ -40,7 +40,7 @@ export class Hero {
           pagination: {
             clickable: true
           },
-          grabCursor: false,
+          grabCursor: true,
           effect: "creative",
           creativeEffect: {
             prev: {
