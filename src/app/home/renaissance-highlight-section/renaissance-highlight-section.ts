@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   inject,
-  PLATFORM_ID,
   viewChild,
 } from '@angular/core';
 import { MatButton } from '@angular/material/button';
@@ -15,7 +14,6 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { isPlatformBrowser } from '@angular/common';
 import { IntersectionObserverService } from '@shared/services/intersection-observer';
 
 @Component({
@@ -37,22 +35,16 @@ export class RenaissanceHighlightSection {
   public section = viewChild.required<ElementRef<HTMLButtonElement>>('section');
   public sectionState = 'hidden';
 
-  private platformId = inject(PLATFORM_ID);
   private intersectionObserverService = inject(IntersectionObserverService);
-
 
   constructor() {
     afterNextRender(() => {
-      if (isPlatformBrowser(this.platformId)) {
-        this.intersectionObserverService.observe(
-          this.section().nativeElement,
-          () => {
-            this.sectionState = 'visible';
-          }
-        );
-      } else {
-        this.sectionState = 'visible'
-      }
+      this.intersectionObserverService.observe(
+        this.section().nativeElement,
+        () => {
+          this.sectionState = 'visible';
+        }
+      );
     });
   }
 }

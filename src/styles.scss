@@ -70,6 +70,10 @@ body {
   color: var(--dark-slate);
 }
 
+section {
+  overflow: hidden;
+}
+
 ul {
   list-style: none;
 }

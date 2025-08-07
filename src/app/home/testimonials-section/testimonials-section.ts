@@ -64,6 +64,7 @@ export class TestimonialsSection {
         });
       } else {
         this.itemState = 'visible';
+        this.cdr.detectChanges();
       }
     });
   }

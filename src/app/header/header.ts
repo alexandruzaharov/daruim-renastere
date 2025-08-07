@@ -15,7 +15,7 @@ import {
   remixMenuLine,
   remixYoutubeFill,
 } from '@ng-icons/remixicon';
-import { debounceTime, fromEvent } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -42,14 +42,13 @@ export class Header implements AfterViewInit {
   public ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       fromEvent(window, 'scroll')
-        .pipe(debounceTime(100))
         .subscribe(() => {
           const currentScrollY = window.scrollY;
           const scrollingDown = currentScrollY > this.lastScrollY;
 
           if (scrollingDown && currentScrollY > 50 && !this.isScrolled) {
             this.isScrolled = true;
-          } else if (!scrollingDown && currentScrollY <= 50 && this.isScrolled) {
+          } else if (!scrollingDown && currentScrollY == 0 && this.isScrolled) {
             this.isScrolled = false;
           }
 

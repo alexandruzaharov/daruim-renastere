@@ -43,22 +43,13 @@ export class StatsSection {
 
   constructor() {
     afterNextRender(() => {
-      if (isPlatformBrowser(this.platformId)) {
-        this.intersectionObserverService.observe(
-          this.section().nativeElement,
-          () => {
-            this.sectionState = 'visible';
-            this.startCounting();
-          }
-        );
-      } else {
-        // On the server, we set the final values directly
-        this.sectionState = 'visible';
-        this.happyClients = 623;
-        this.yearsActive = 12;
-        this.essentialOils = 32;
-        this.members = 800;
-      }
+      this.intersectionObserverService.observe(
+        this.section().nativeElement,
+        () => {
+          this.sectionState = 'visible';
+          this.startCounting();
+        }
+      );
     });
   }
 
@@ -68,6 +59,12 @@ export class StatsSection {
       this.animateCount(this.yearsActiveRef().nativeElement, 0, 12, 1500);
       this.animateCount(this.essentialOilsRef().nativeElement, 0, 32, 1500);
       this.animateCount(this.membersRef().nativeElement, 0, 800, 1500);
+    } else {
+      // On the server, we set the final values directly
+      this.happyClients = 623;
+      this.yearsActive = 12;
+      this.essentialOils = 32;
+      this.members = 800;
     }
   }
 
