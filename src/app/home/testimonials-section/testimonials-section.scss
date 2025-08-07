@@ -38,7 +38,7 @@ h2 {
 }
 
 swiper-container {
-  margin-top: 4rem;
+  margin-top: 5rem;
   --swiper-theme-color: var(--vibrant-rose);
 }
 
@@ -81,7 +81,13 @@ swiper-container {
 
 /* For laptop */
 @media (min-width: 768px) {
+  .container {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
   .button-container {
     order: initial;
+    margin-top: 5rem;
   }
 }

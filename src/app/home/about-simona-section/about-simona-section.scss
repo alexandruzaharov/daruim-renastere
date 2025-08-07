@@ -1,5 +1,5 @@
 .about-simona {
-  background: linear-gradient(135deg, var(--creamy-white), var(--soft-gold));
+  background-color: var(--pure-white);
 }
 
 .container {
@@ -40,11 +40,12 @@ p {
   .container {
     display: flex;
     padding-top: 0;
+    padding-top: 8rem;
   }
 
   .text-content {
     order: 2;
-    margin-top: 5rem;
+    margin-top: 1rem;
   }
 
   h2 {

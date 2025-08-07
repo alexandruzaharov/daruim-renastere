@@ -20,7 +20,7 @@ import { SwiperOptions } from 'swiper/types';
         params: { transform: 'translateX(0)' },
       }),
       state('visible', style({ opacity: 1, transform: 'translateX(0)' })),
-      transition('hidden => visible', animate('0.8s ease-out')),
+      transition('hidden => visible', animate('1s ease-out')),
     ]),
   ],
 })

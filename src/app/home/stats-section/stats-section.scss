@@ -44,6 +44,8 @@ p {
 @media (min-width: 1024px) {
     .container {
         display: flex;
+        padding-top: 8rem;
+        padding-bottom: 8rem;
     }
 
     .text-content {
