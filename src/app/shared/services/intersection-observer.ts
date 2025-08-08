@@ -23,14 +23,16 @@ export class IntersectionObserverService {
             }
           });
         },
-        { threshold: 0.5 }
+        { threshold: 0.3 }
       );
     }
   }
 
-  observe(element: HTMLElement, callback: () => void) {
+  observe(element: HTMLElement, callback: () => void, delayMS = 0) {
     if (isPlatformBrowser(this.platformId)) {
-      this.callbackMap.set(element, callback);
+      this.callbackMap.set(element, () => {
+        setTimeout(callback, delayMS);
+      });
       this.observer?.observe(element);
     } else {
       callback();

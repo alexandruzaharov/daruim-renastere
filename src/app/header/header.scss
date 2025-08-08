@@ -168,7 +168,7 @@
 }
 
 // Navigation for mobile devices
-@media (max-width: 1280px) {
+@media (max-width: 1175px) {
     .nav {
         &.shrunk {
             .nav__menu {
@@ -216,7 +216,7 @@
 }
 
 /* For large devices */
-@media (min-width: 1280px) {
+@media (min-width: 1175px) {
     .container {
         margin-inline: auto;
     }

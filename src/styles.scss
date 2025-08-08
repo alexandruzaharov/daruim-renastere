@@ -39,8 +39,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-// html, body { height: 100%; }
-
 html {
   @include mat.theme((
     color: (
@@ -100,7 +98,7 @@ h3, h4, h5, h6 {
 p {
   font-weight: var(--font-regular);
   font-size: 1.6rem;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 /*=============== REUSABLE CSS CLASSES ===============*/
@@ -111,11 +109,4 @@ p {
 
 .no-transition {
     transition: none !important;
-}
-
-// Responsive typography
-@media screen and (min-width: 1024px) {
-  :root {
-    --normal-font-size: 1.6rem;
-  }
 }

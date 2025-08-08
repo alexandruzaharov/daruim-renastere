@@ -1,0 +1,48 @@
+.about-hero {
+  background-color: var(--pastel-lavender);
+  text-align: center;
+  padding: 6rem 2rem;
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  p {
+    font-family: var(--navigation-font);
+    font-size: 1.8rem;
+    color: var(--deep-plum);
+    margin-top: 1rem;
+  }
+}
+
+.about-story {
+  padding: 4rem 2rem;
+
+  .story-card {
+    background: var(--pure-white);
+    border-left: 5px solid var(--muted-plum);
+    padding: 3rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 0.8rem;
+
+    p {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.about-team {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--creamy-white);
+
+  p {
+    font-size: 1.8rem;
+    color: var(--muted-plum);
+  }
+
+  h3 {
+    color: var(--rich-burgundy);
+    margin-top: 1rem;
+  }
+}
