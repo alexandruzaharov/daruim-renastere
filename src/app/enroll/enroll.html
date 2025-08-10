@@ -1,0 +1,206 @@
+<section #enroll class="enroll">
+  <header class="header">
+    <h1 class="header__title">Înscrie-te în comunitatea dōTERRA</h1>
+    <p class="header__subtitle">
+      Începe călătoria ta spre un stil de viață sănătos, alături de un îndrumător dedicat care te va sprijini la fiecare pas.
+    </p>
+  </header>
+  
+  <div class="container">
+    <section class="intro">
+      <h2 class="intro__title">Profită de beneficiile înscrierii</h2>
+      <p class="intro__text">
+        Înscrierea înseamnă să îți creezi un cont dōTERRA prin intermediul îndrumătorului nostru, alegând kitul de înscriere care ți se potrivește. Odată înscris, te bucuri de beneficii exclusive:
+      </p>
+  
+      <div class="benefits">
+        @for (benefit of benefits; let index = $index; track $index) {
+          <div class="benefits__item" [attr.data-index]="index" #benefit>
+            <ng-icon [name]="benefit.icon" class="benefits__icon"></ng-icon>
+            <h5>{{ benefit.title }}</h5>
+            <p>{{ benefit.description }}</p>
+          </div>
+        }
+      </div>
+
+      <div>
+        <h2 class="start-title">Ești gata să începi?</h2>
+      </div>
+    </section>
+  </div>
+
+  @if (vm$ | async; as vm) {
+    <div class="container">
+      <section class="mentor">
+        <h3 class="step-title" #stepTitle><span class="step-number">1</span>Alege-ți îndrumătorul</h3>
+        <div class="mentor__grid">
+          <div class="mentor__left">
+            <img
+              class="mentor__photo"
+              #mentorPhoto [src]="vm.selectedMentor?.photo"
+              [alt]="vm.selectedMentor?.name"
+            />
+            <h3 class="mentor__name">{{ vm.selectedMentor?.name }}</h3>
+          </div>
+    
+          <div class="mentor__right">
+            <p class="mentor__text">
+              Implicit, vei fi ghidat de <strong>{{ vm.defaultMentor?.name }}</strong>, îndrumătorul lunii. Dacă preferi, poți alege alt îndrumător din lista de mai jos.
+            </p>
+    
+            <mat-form-field appearance="outline" class="mentor__dropdown">
+              <mat-label>Selectează îndrumător</mat-label>
+              <mat-select
+                [value]="vm.selectedMentor?.id"
+                (selectionChange)="onMentorChange($event.value)"
+              >
+                @for (mentor of vm.mentors; track mentor.id) {
+                  <mat-option [value]="mentor.id" class="mentor__dropdown-option">
+                    <div class="mentor__option">
+                      <img [src]="mentor.photo" [alt]="mentor.name" class="mentor__option-photo" />
+                      <span>{{ mentor.name }}</span>
+                    </div>
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </section>
+    </div>
+  
+    <section class="kits-section">
+      <div class="container">
+        <div class="kits-section__content">
+          <h3 class="step-title" #stepTitle><span class="step-number">2</span>Alege kitul potrivit pentru tine</h3>
+          <p class="kits-section__text">Fiecare kit conține tot ce ai nevoie pentru a începe călătoria ta cu uleiurile esențiale.</p>
+        </div>
+      </div>
+  
+      <div class="kits-swipper-wrapper">
+        <swiper-container #swiper init="false">
+          @for (kit of vm.kits; track kit.id) {
+            <swiper-slide>
+              <div class="kit-card__wrapper">
+                <div class="kit-card">
+                  <img class="kit-card__img" [src]="kit.img" [alt]="kit.name" />
+                  <h3 class="kit-card__title">{{ kit.name }}</h3>
+                  <p class="kit-card__description">{{ kit.description }}</p>
+                  <div class="kit-card__costs">
+                    <p>Preț public: {{ kit.retail.price}}<sup><small>,</small>{{ kit.retail.decimal }}</sup><span> €</span></p>
+                    <p>Preț pentru membri: {{ kit.wholesale.price}}<sup><small>,</small>{{ kit.wholesale.decimal }}</sup><span> €</span></p>
+                  </div>
+                  <a
+                    mat-flat-button
+                    [href]="kit.link"
+                    target="_blank"
+                  >Înscrie-te cu acest kit</a>
+                </div>
+              </div>
+            </swiper-slide>
+          }
+        </swiper-container>
+      </div>
+    </section>
+  }
+
+  <section class="samples">
+    <div class="container">
+      <h3 class="samples__title">Solicită mostre gratuite</h3>
+      <p class="samples__description">
+        Dacă <strong>nu ai mai testat uleiurile doTERRA</strong> sau <strong>nu ai un îndrumător</strong>, poți solicita mostre gratuite.
+      </p>
+  
+      <form [formGroup]="samplesForm" (ngSubmit)="submitSamples()" class="samples__form">
+        <div class="samples__form__fields">
+          <mat-form-field appearance="fill" class="samples__form__field">
+            <mat-label for="name">Nume</mat-label>
+            <input matInput id="name" type="text" formControlName="name" />
+            @if (samplesForm.get('name')?.hasError('required') && samplesForm.get('name')?.touched) {
+              <mat-error>Numele este obligatoriu</mat-error>
+            }
+            @if (samplesForm.get('name')?.hasError('minlength') && samplesForm.get('name')?.touched) {
+              <mat-error>Minim 3 caractere</mat-error>
+            }
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="samples__form__field">
+            <mat-label for="email">E-mail</mat-label>
+            <input matInput id="email" type="email" formControlName="email" />
+            @if (samplesForm.get('email')?.hasError('required') && samplesForm.get('email')?.touched) {
+              <mat-error>E-mailul este obligatoriu</mat-error>
+            }
+            @if (samplesForm.get('email')?.hasError('email') && samplesForm.get('email')?.touched) {
+              <mat-error>Format invalid</mat-error>
+            }
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="samples__form__field">
+            <mat-label for="phone">Telefon</mat-label>
+            <input matInput id="phone" type="tel" formControlName="phone" />
+            @if (samplesForm.get('phone')?.hasError('required') && samplesForm.get('phone')?.touched) {
+              <mat-error>Telefonul este obligatoriu</mat-error>
+            }
+            @if (samplesForm.get('phone')?.hasError('pattern') && samplesForm.get('phone')?.touched) {
+              <mat-error>Număr de telefon invalid</mat-error>
+            }
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="samples__form__field">
+            <mat-label for="city">Localitate</mat-label>
+            <input id="city" matInput type="text" formControlName="city" />
+            @if (samplesForm.get('city')?.hasError('required') && samplesForm.get('city')?.touched) {
+              <mat-error>Localitatea este obligatorie</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="samples__form__checkboxes">
+          <mat-checkbox formControlName="confirmNotTested" class="samples__form__checkbox">
+            Confirm că nu am mai testat uleiurile doTERRA
+          </mat-checkbox>
+          @if (samplesForm.get('confirmNotTested')?.hasError('required') && samplesForm.get('confirmNotTested')?.touched) {
+            <mat-error>Trebuie să confirmi</mat-error>
+          }
+    
+          <mat-checkbox formControlName="confirmNoMentor" class="samples__form__checkbox">
+            Confirm că nu am un îndrumător
+          </mat-checkbox>
+          @if (samplesForm.get('confirmNoMentor')?.hasError('required') && samplesForm.get('confirmNoMentor')?.touched) {
+            <mat-error>Trebuie să confirmi</mat-error>
+          }
+        </div>
+  
+        <div class="samples__form__action">
+          <button mat-flat-button type="submit" [disabled]="!samplesForm.valid || isSubmitting">
+            <div class="samples__form__action__label">
+              @if (isSubmitting) {
+                <mat-spinner [diameter]="18"></mat-spinner>
+                <span>Se trimite...</span>
+              } @else {
+                Trimite cererea
+              }
+            </div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="faq" aria-label="Întrebări frecvente">
+    <div class="container">
+      <h2 class="faq__title">Întrebări frecvente</h2>
+  
+      <mat-accordion class="faq__accordion">
+        @for (item of faqList; track $index; let i = $index) {
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ item.question }}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p [innerHTML]="item.answer"></p>
+          </mat-expansion-panel>
+        }
+      </mat-accordion>
+    </div>
+  </section>
+</section>

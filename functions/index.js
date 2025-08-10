@@ -1,32 +1,50 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const { onRequest } = require("firebase-functions/https");
+const nodemailer = require('nodemailer');
+const cors = require('cors')({ origin: ['https://daruimrenastere.ro', 'https://daruim-renastere.web.app', 'http://localhost:5000'] });
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
-const logger = require("firebase-functions/logger");
+const transporter = nodemailer.createTransport({
+  host: 'smtp.zoho.eu',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'contact@daruimrenastere.ro',
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+exports.sendSamplesEmail = onRequest({ secrets: ['EMAIL_PASSWORD'] }, (req, res) => {
+  cors(req, res, async () => {
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Metoda nu este permisă' });
+    }
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+    const { name, email, phone, city } = req.body;
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+    if (!name || !email || !phone || !city) {
+      return res.status(400).json({ error: 'Toate câmpurile sunt obligatorii' });
+    }
+
+    const mailOptions = {
+      from: 'contact@daruimrenastere.ro',
+      to: 'contact@daruimrenastere.ro',
+      replyTo: email,
+      subject: `Cerere mostre de la ${name}`,
+      text: `Nume: ${name}\nE-mail: ${email}\nTelefon: ${phone}\nLocalitate: ${city}`,
+      html: `
+        <h2>Cerere nouă pentru mostre</h2>
+        <p><strong>Nume:</strong> ${name}</p>
+        <p><strong>E-mail:</strong> ${email}</p>
+        <p><strong>Telefon:</strong> ${phone}</p>
+        <p><strong>Localitate:</strong> ${city}</p>
+      `,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ message: 'Mesaj trimis cu succes!' });
+    } catch (error) {
+      console.error('Eroare la trimiterea e-mailului:', error);
+      res.status(500).json({ error: 'Eroare la trimiterea e-mailului', details: error.message });
+    }
+  });
+});

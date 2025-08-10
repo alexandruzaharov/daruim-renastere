@@ -6,6 +6,7 @@
   --pastel-lavender: #D9C2DE; /* base for backgrounds */
   --pure-white: #FFFFFF; /* primary background or light text */
   --pale-lilac: #F8F1FA; /* secondary background */
+  --pale-lilac-darker: #eee1f2; /* hover state */
   --creamy-white: #FFF9F0;
   --soft-gold: #F4E0B9;
 
@@ -18,8 +19,10 @@
   --warm-mauve: #A63F6E; /* for text - hover state */
   --vibrant-rose: #DE3B8E;
   --soft-rose: #E45EA0; /* for hover effects or buttons */
+  --pale-rose: #EBE1E7;
   --dark-slate: #2A1E33; /* text or strong accents */
   --shadow-plum: #4A3A55; /* for shadows or borders */
+  --steel-gray: #84909b;
 
    /*========== Font and typography ==========*/
    --body-font: 'Open Sans', sans-serif;
@@ -35,4 +38,8 @@
 	/*========== z index ==========*/
    --z-tooltip: 10;
    --z-fixed: 100;
+
+   /*========== Angular Material override ==========*/
+   --mat-sys-primary: var(--vibrant-rose);
+   --mat-select-panel-background-color: var(--pale-lilac);
 }

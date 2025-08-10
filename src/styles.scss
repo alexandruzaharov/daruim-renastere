@@ -64,7 +64,6 @@ body {
   font-family: var(--body-font);
   font-weight: var(--font-regular);
   font-size: var(--normal-font-size);
-  background-color: var(--pale-lilac);
   color: var(--dark-slate);
 }
 
@@ -109,4 +108,18 @@ p {
 
 .no-transition {
     transition: none !important;
+}
+
+.snackbar {
+  &-ok {
+    @include mat.snack-bar-overrides((
+      button-color: var(--vibrant-rose),
+    ));
+  }
+  &-error {
+    @include mat.snack-bar-overrides((
+      container-color: #d32f2f,
+      button-color: var(--pure-white),
+    ));
+  }
 }

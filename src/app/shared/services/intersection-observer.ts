@@ -23,12 +23,12 @@ export class IntersectionObserverService {
             }
           });
         },
-        { threshold: 0.3 }
+        { threshold: 0.25 }
       );
     }
   }
 
-  observe(element: HTMLElement, callback: () => void, delayMS = 0) {
+  public observe(element: HTMLElement, callback: () => void, delayMS = 0) {
     if (isPlatformBrowser(this.platformId)) {
       this.callbackMap.set(element, () => {
         setTimeout(callback, delayMS);

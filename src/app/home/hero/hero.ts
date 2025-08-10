@@ -10,12 +10,10 @@ import {
   PLATFORM_ID,
   viewChild,
 } from '@angular/core';
-import { register, SwiperContainer } from 'swiper/element/bundle';
+import { SwiperContainer } from 'swiper/element/bundle';
 import { SwiperOptions } from 'swiper/types';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-
-register();
 
 @Component({
   selector: 'app-hero',

@@ -7,6 +7,8 @@ import {
 } from '@angular/animations';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   inject,
@@ -18,6 +20,7 @@ import { IntersectionObserverService } from '@shared/services/intersection-obser
   imports: [],
   templateUrl: './about-us.html',
   styleUrl: './about-us.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('visibility', [
       state('hidden', style({ opacity: 0, transform: '{{transform}}' }), {
@@ -33,7 +36,7 @@ export class AboutUs implements AfterViewInit {
 
   private el = inject(ElementRef);
   private observerService = inject(IntersectionObserverService);
-
+  private cdr = inject(ChangeDetectorRef);
 
   public ngAfterViewInit(): void {
     const sections = this.el.nativeElement.querySelectorAll('[data-observe]');
@@ -44,8 +47,8 @@ export class AboutUs implements AfterViewInit {
         section,
         () => {
           this.sectionStates[index] = 'visible';
-        },
-        index * 150
+          this.cdr.detectChanges();
+        }
       );
     });
   }

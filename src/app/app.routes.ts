@@ -8,7 +8,7 @@ export const routes: Routes = [
     { path: 'testimoniale', loadComponent: () => import('./testimonials/testimonials').then(c => c.Testimonials) },
     { path: 'evenimente', loadComponent: () => import('./events/events').then(c => c.Events) },
     { path: 'contact', loadComponent: () => import('./contact/contact').then(c => c.Contact) },
-    { path: 'inscrie-te', loadComponent: () => import('./register/register').then(c => c.Register) },
+    { path: 'inscrie-te', loadComponent: () => import('./enroll/enroll').then(c => c.Enroll) },
     { path: '', loadComponent: () => import('./home/home').then(c => c.Home) },
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
