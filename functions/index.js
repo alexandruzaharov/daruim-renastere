@@ -12,13 +12,32 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-exports.sendSamplesEmail = onRequest({ secrets: ['EMAIL_PASSWORD'] }, (req, res) => {
+exports.sendSamplesEmail = onRequest({ secrets: ['EMAIL_PASSWORD', 'TURNSTILE_SECRET'] }, (req, res) => {
   cors(req, res, async () => {
     if (req.method !== 'POST') {
       return res.status(405).json({ error: 'Metoda nu este permisă' });
     }
 
-    const { name, email, phone, city } = req.body;
+    const { name, email, phone, city, turnstile } = req.body;
+
+    if (!turnstile) {
+      return res.status(400).json({ error: 'Verificare Turnstile lipsă' });
+    }
+
+    const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET,
+        response: turnstile
+      }),
+    });
+
+    const verification = await verifyResponse.json();
+
+    if (!verification.success) {
+      return res.status(400).json({ error: 'Verificare Turnstile eșuată' });
+    }
 
     if (!name || !email || !phone || !city) {
       return res.status(400).json({ error: 'Toate câmpurile sunt obligatorii' });

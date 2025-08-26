@@ -26,6 +26,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxTurnstileModule, NgxTurnstileFormsModule } from 'ngx-turnstile';
 import {
   remixDiscountPercentLine,
   remixGiftLine,
@@ -56,6 +57,8 @@ import { BENEFITS, Benefits, Faq, FAQ_LIST } from './content.data';
     MatButtonModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    NgxTurnstileModule,
+    NgxTurnstileFormsModule,
   ],
   providers: [
     provideIcons({
@@ -76,6 +79,7 @@ export class Enroll implements AfterViewInit, OnDestroy {
   public isSubmitting: boolean = false;
   public faqList: Faq[] = FAQ_LIST;
   public benefits: Benefits[] = BENEFITS;
+  public environment = environment;
   
   private enroll = viewChild.required<ElementRef<HTMLElement>>('enroll');
   private benefitsElement = viewChildren<ElementRef<HTMLElement>>('benefit');
@@ -100,6 +104,7 @@ export class Enroll implements AfterViewInit, OnDestroy {
     city: ['', Validators.required],
     confirmNotTested: [false, Validators.requiredTrue],
     confirmNoMentor: [false, Validators.requiredTrue],
+    turnstile: ['', Validators.required],
   });
 
   public ngAfterViewInit(): void {

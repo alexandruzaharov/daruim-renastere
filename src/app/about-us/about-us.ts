@@ -1,10 +1,4 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,8 +6,10 @@ import {
   Component,
   ElementRef,
   inject,
+  PLATFORM_ID,
+  Renderer2,
+  viewChildren,
 } from '@angular/core';
-import { IntersectionObserverService } from '@shared/services/intersection-observer';
 
 @Component({
   selector: 'app-about-us',
@@ -21,35 +17,29 @@ import { IntersectionObserverService } from '@shared/services/intersection-obser
   templateUrl: './about-us.html',
   styleUrl: './about-us.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('visibility', [
-      state('hidden', style({ opacity: 0, transform: '{{transform}}' }), {
-        params: { transform: 'translateY(0)' },
-      }),
-      state('visible', style({ opacity: 1, transform: 'translateY(0)' })),
-      transition('hidden => visible', animate('0.8s ease-out')),
-    ]),
-  ],
 })
 export class AboutUs implements AfterViewInit {
-  public sectionStates: string[] = [];
+  private storyCards = viewChildren<ElementRef<HTMLElement>>('storyCard');
 
-  private el = inject(ElementRef);
-  private observerService = inject(IntersectionObserverService);
+  private platformId = inject(PLATFORM_ID);
+  private renderer = inject(Renderer2);
   private cdr = inject(ChangeDetectorRef);
 
   public ngAfterViewInit(): void {
-    const sections = this.el.nativeElement.querySelectorAll('[data-observe]');
-    this.sectionStates = Array(sections.length).fill('hidden');
+    if (isPlatformBrowser(this.platformId)) {
+      const intersectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.renderer.addClass(entry.target, 'visible');
+            this.cdr.detectChanges();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
 
-    sections.forEach((section: HTMLElement, index: number) => {
-      this.observerService.observe(
-        section,
-        () => {
-          this.sectionStates[index] = 'visible';
-          this.cdr.detectChanges();
-        }
-      );
-    });
+      this.storyCards().forEach(el => {
+        intersectionObserver?.observe(el.nativeElement);
+      });
+    }
   }
 }
