@@ -1,0 +1,14 @@
+<div class="notification-snackbar">
+  @if (data.type === 'success') {
+  <ng-icon
+    name="remixCheckboxCircleLine"
+    class="notification-snackbar__icon notification-snackbar__icon--green"
+  ></ng-icon>
+  } @else if (data.type === 'error') {
+  <ng-icon
+    name="remixErrorWarningLine"
+    class="notification-snackbar__icon notification-snackbar__icon--red"
+  ></ng-icon>
+  }
+  <div>{{ data.message }}</div>
+</div>

@@ -110,16 +110,23 @@ p {
     transition: none !important;
 }
 
-.snackbar {
-  &-ok {
-    @include mat.snack-bar-overrides((
-      button-color: var(--vibrant-rose),
-    ));
-  }
-  &-error {
-    @include mat.snack-bar-overrides((
-      container-color: #d32f2f,
-      button-color: var(--pure-white),
-    ));
-  }
+/* Notification snackbar */
+.notification-snackbar-wrapper {
+  margin: 0 !important;
+  padding: 0.8rem;
+  position: absolute;
+  top: 8rem;
+  right: 0;
+
+  @include mat.snack-bar-overrides((
+    container-color: #1C2526,
+  ));
+}
+
+.mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container {
+  width: 100% !important;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  min-width: initial !important;
 }

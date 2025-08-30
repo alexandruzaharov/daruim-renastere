@@ -41,8 +41,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { DataService } from '@shared/services/data';
 import { Observable } from 'rxjs';
-import { EnrollVMData } from '@shared/models/data.model';
+import { EnrollVMData } from '@shared/services/data.model';
 import { BENEFITS, Benefits, Faq, FAQ_LIST } from './content.data';
+import { NotificationSnackbar } from '@shared/components/notification-snackbar/notification-snackbar';
+import { NotificationData } from '@shared/components/notification-snackbar/notification-snackbar.data';
 
 @Component({
   selector: 'app-enroll',
@@ -145,11 +147,13 @@ export class Enroll implements AfterViewInit, OnDestroy {
           this.formDirective().resetForm();
           this.isSubmitting = false;
 
-          this.snackBar.open('Cerere trimisă cu succes!', '✖', {
+          this.snackBar.openFromComponent(NotificationSnackbar, {
             duration: 3000,
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            panelClass: ['snackbar-ok'],
+            panelClass: ['notification-snackbar-wrapper'],
+            data: {
+              message: 'Cerere trimisă cu succes!',
+              type: 'success'
+            } as NotificationData,
           });
         },
         error: (error) => {
@@ -157,16 +161,14 @@ export class Enroll implements AfterViewInit, OnDestroy {
           this.formDirective().resetForm();
           this.isSubmitting = false;
 
-          this.snackBar.open(
-            'Eroare la trimiterea cererii. Te rugăm să încerci din nou.',
-            '✖',
-            {
-              duration: 4000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: ['snackbar-error'],
-            }
-          );
+          this.snackBar.openFromComponent(NotificationSnackbar, {
+            duration: 5000,
+            panelClass: ['notification-snackbar-wrapper'],
+            data: {
+              message: 'Eroare la trimiterea cererii. Te rugăm să încerci din nou.',
+              type: 'error'
+            } as NotificationData,
+          });
         },
       });
   }

@@ -1,1 +1,154 @@
-<p>contact works!</p>
+<section>
+  <header class="header">
+    <h1 class="header__title">Ne bucurăm să te auzim</h1>
+    <p class="header__subtitle">
+      Trimite-ne un mesaj și povestește-ne cum te putem ajuta.
+    </p>
+  </header>
+
+  <div class="container">
+    <p class="intro-text">{{ introText }}</p>
+    <section class="contact">
+      <div class="contact__data__wrapper">
+        <p class="intro-text">{{ introText }}</p>
+         <div class="contact__data__arrow__wrapper">
+           <svg class="contact__data__arrow"><use href="/images/curved-arrow-svgrepo-com.svg#curved-arrow"></use></svg>
+         </div>
+        <h2 class="contact__data__title">Date de contact</h2>
+        <ul>
+          <li class="contact__data__item">
+            <span>Facebook: </span>
+            <a href="https://www.facebook.com/DaruimRenastere" target="_blank"
+              >Dăruim Renaștere</a
+            >
+          </li>
+          <li class="contact__data__item">
+            <span>Facebook Grup: </span>
+            <a
+              href="https://facebook.com/groups/735885007342621"
+              target="_blank"
+              >Dăruim Renaștere</a
+            >
+          </li>
+          <li class="contact__data__item">Telefon: 0755 543 623</li>
+          <li class="contact__data__item">E-mail: contact@daruimrenastere.ro</li>
+        </ul>
+        <img
+          src="/images/daruimrenastere-logo-nav.webp"
+          alt="Logo"
+          class="contact__data__logo"
+        />
+      </div>
+
+      <div class="contact__form__container">
+        <h2 class="contact__form__title">Formular de contact</h2>
+        <div class="contact__form__wrapper">
+          <form
+            [formGroup]="contactForm"
+            (ngSubmit)="submitContact()"
+            class="contact__form"
+          >
+            <div class="contact__form__fields">
+              <mat-form-field appearance="outline" class="contact__form__field">
+                <mat-label for="name">Nume</mat-label>
+                <input
+                  matInput
+                  id="name"
+                  type="text"
+                  placeholder="Introdu numele tău complet"
+                  formControlName="name"
+                />
+                @if (contactForm.get('name')?.hasError('required') &&
+                contactForm.get('name')?.touched) {
+                <mat-error>Numele este obligatoriu</mat-error>
+                } @if (contactForm.get('name')?.hasError('minlength') &&
+                contactForm.get('name')?.touched) {
+                <mat-error>Minim 3 caractere</mat-error>
+                }
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline" class="contact__form__field">
+                <mat-label for="email">E-mail</mat-label>
+                <input
+                  matInput
+                  id="email"
+                  type="email"
+                  placeholder="Introdu e-mailul tău"
+                  formControlName="email"
+                />
+                @if (contactForm.get('email')?.hasError('required') &&
+                contactForm.get('email')?.touched) {
+                <mat-error>E-mailul este obligatoriu</mat-error>
+                } @if (contactForm.get('email')?.hasError('email') &&
+                contactForm.get('email')?.touched) {
+                <mat-error>Format invalid</mat-error>
+                }
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline" class="contact__form__field">
+                <mat-label for="phone">Telefon</mat-label>
+                <input
+                  matInput
+                  id="phone"
+                  type="tel"
+                  placeholder="Introdu numărul de telefon (opțional)"
+                  formControlName="phone"
+                />
+                @if (contactForm.get('phone')?.hasError('pattern') &&
+                contactForm.get('phone')?.touched) {
+                <mat-error>Număr de telefon invalid</mat-error>
+                }
+              </mat-form-field>
+  
+              <div>
+                <label for="hasDoTerraAccount">Aveți cont doTERRA?</label>
+                <mat-radio-group formControlName="hasDoTerraAccount">
+                  <mat-radio-button value="yes">Da</mat-radio-button>
+                  <mat-radio-button value="no">Nu</mat-radio-button>
+                </mat-radio-group>
+              </div>
+  
+              <mat-form-field appearance="outline" class="contact__form__field">
+                <mat-label for="message">Mesaj</mat-label>
+                <textarea
+                  matInput
+                  placeholder="Scrie aici întrebarea sau solicitarea ta..."
+                  formControlName="message"
+                ></textarea>
+                @if (contactForm.get('message')?.hasError('required') &&
+                contactForm.get('message')?.touched) {
+                <mat-error>Mesajul este obligatoriu</mat-error>
+                }
+              </mat-form-field>
+            </div>
+  
+            <div class="contact__form__captcha">
+              <ngx-turnstile
+                [siteKey]="environment.turnstileSiteKey"
+                formControlName="turnstile"
+                theme="light"
+                language="ro"
+              >
+              </ngx-turnstile>
+            </div>
+  
+            <div class="contact__form__action">
+              <button
+                mat-flat-button
+                type="submit"
+                [disabled]="!contactForm.valid || isSubmitting"
+              >
+                <div class="contact__form__action__label">
+                  @if (isSubmitting) {
+                  <mat-spinner [diameter]="18"></mat-spinner>
+                  <span>Se trimite...</span>
+                  } @else {Trimite}
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

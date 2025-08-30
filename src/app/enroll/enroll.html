@@ -170,14 +170,16 @@
             <mat-error>Trebuie să confirmi</mat-error>
           }
         </div>
+
+        <div class="samples__form__captcha">
+          <ngx-turnstile
+            [siteKey]="environment.turnstileSiteKey"
+            formControlName="turnstile"
+            theme="light"
+            language="ro">
+          </ngx-turnstile>
+        </div>
   
-        <ngx-turnstile
-          [siteKey]="environment.turnstileSiteKey"
-          formControlName="turnstile"
-          theme="light"
-          language="ro"
-          class="samples__form__captcha">
-        </ngx-turnstile>
 
         <div class="samples__form__action">
           <button mat-flat-button type="submit" [disabled]="!samplesForm.valid || isSubmitting">
