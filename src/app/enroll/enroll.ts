@@ -39,9 +39,9 @@ import { SwiperContainer } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { DataService } from '@shared/services/data';
+import { EnrollDataService } from '@shared/services/enroll-data';
 import { Observable } from 'rxjs';
-import { EnrollVMData } from '@shared/services/data.model';
+import { EnrollVMData } from '@shared/services/enroll-data.model';
 import { BENEFITS, Benefits, Faq, FAQ_LIST } from './content.data';
 import { NotificationSnackbar } from '@shared/components/notification-snackbar/notification-snackbar';
 import { NotificationData } from '@shared/components/notification-snackbar/notification-snackbar.data';
@@ -94,7 +94,7 @@ export class Enroll implements AfterViewInit, OnDestroy {
   private formBuilder = inject(FormBuilder);
   private http = inject(HttpClient);
   private snackBar = inject(MatSnackBar);
-  private dataService = inject(DataService);
+  private dataService = inject(EnrollDataService);
   private renderer = inject(Renderer2);
 
   public vm$: Observable<EnrollVMData> = this.dataService.vm$;

@@ -12,7 +12,7 @@ import {
   Mentor,
   MonthlyMentor,
   MonthlyMentorsDoc,
-} from '@shared/services/data.model';
+} from '@shared/services/enroll-data.model';
 import {
   BehaviorSubject,
   combineLatest,
@@ -24,7 +24,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class EnrollDataService {
   private firestore = inject(Firestore);
   private selectedMentorId$ = new BehaviorSubject<string | null>(null);
 

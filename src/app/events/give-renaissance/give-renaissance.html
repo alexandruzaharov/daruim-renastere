@@ -1,0 +1,115 @@
+<section class="hero">
+  <div class="hero__overlay">
+    <div class="hero__content">
+      <h1 class="hero__title">Evenimente „Dăruim Renaștere”</h1>
+      <p class="hero__subtitle">
+        Descoperă întâlniri dedicate sănătății, echilibrului și reconectării cu natura.
+      </p>
+      <p class="hero__highlight">
+        Nu există niciun cost pentru participare – tot ce ai nevoie este deschiderea ta.
+      </p>
+      <button mat-flat-button (click)="scrollToEvents('smooth')">
+        <div class="hero__button">
+          <span>Vezi evenimentele</span><ng-icon name="remixArrowDownDoubleLine" size="2rem"></ng-icon>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <section class="about">
+    <h2 class="about__title">Despre Evenimentele „Dăruim Renaștere”</h2>
+    <p class="about__text">
+      Evenimentele noastre sunt create pentru a oferi 
+      <strong>sprijin, inspirație și un spațiu de redescoperire personală</strong>. 
+      În fiecare lună alegem o temă dedicată și aducem împreună 
+      <strong>experiențe reale și idei practice</strong> pentru integrarea 
+      uleiurilor esențiale în viața de zi cu zi.
+    </p>
+    <p class="about__text">
+      Vei găsi aici <strong>testimoniale inspiraționale de la oameni care au trecut prin provocări similare</strong>, 
+      soluții simple și utile pentru echilibrul fizic și emoțional și bucuria de a face parte 
+      dintr-o comunitate caldă și deschisă.
+    </p>
+  </section>
+
+  <section #eventsSection class="events">
+    <h2 class="events__title">Evenimentele noastre</h2>
+    <div class="events__tabs">
+      <button
+        class="events__tabs__button"
+        [class.active]="activeTab === 0"
+        (click)="setActiveTab(0)"
+      >
+        Evenimente Viitoare
+      </button>
+      <button
+        class="events__tabs__button"
+        [class.active]="activeTab === 1"
+        (click)="setActiveTab(1)"
+      >
+        Evenimente din Trecut
+      </button>
+    </div>
+
+    @let viewDetails = viewEventDetails$ | async;
+    @if (viewDetails && selectedEventData) {
+      <div @cardDetail>
+        <button class="back-btn" (click)="closeEventDetails()">
+          <ng-icon name="remixArrowLeftLongLine" size="2.8rem"></ng-icon>
+          <span class="back-btn__text">Înapoi</span>
+        </button>
+        <app-event
+          [image]="selectedEventData.imageLarge"
+          [title]="selectedEventData.title"
+          [online]="selectedEventData.online"
+          [date]="selectedEventData.date"
+          [hosts]="selectedEventData.hosts"
+          [description]="selectedEventData.description"
+          [whatsAppGroup]="selectedEventData.whatsAppGroup"
+          [physicalLocation]="selectedEventData.physicalLocation"
+          [zoom]="selectedEventData.zoom"
+        ></app-event>
+      </div>
+    }
+    @else {
+      <div class="events__items">
+        @let vm = vm$ | async;
+        @if (activeTab === 0 && vm) {
+          @for (event of vm | filterEvents: 'future'; track $index) {
+            @if (!hideCard || pendingEvent?.id !== event.id) {
+              <app-event-card
+                [@cardSmall]="isTabSwitching ? 'tabSwitch' : 'default'"
+                class="event-card"
+                [event]="event"
+                (@cardSmall.done)="onCardAnimationDone()"
+                (cardClicked)="viewEventDetails($event)"
+              ></app-event-card>
+            }
+          }
+        }
+        @if (activeTab === 1 && vm) {
+          @for (event of vm | filterEvents: 'past'; track $index) {
+            @if (!hideCard || pendingEvent?.id !== event.id) {
+              <app-event-card
+                [@cardSmall]="isTabSwitching ? 'tabSwitch' : 'default'"
+                class="event-card"
+                [event]="event"
+                (@cardSmall.done)="onCardAnimationDone()"
+                (cardClicked)="viewEventDetails($event)"
+              ></app-event-card>
+            }
+          }
+        }
+      </div>
+    }
+  </section>
+
+  <section class="call-to-action">
+    <h2>Vrei să descoperi mai multe?</h2>
+    <p>Poți începe prin a solicita mostre gratuite sau a te înscrie în comunitatea noastră pentru a beneficia de mai mult sprijin.</p>
+    <button mat-flat-button>Solicită mostre gratuite</button>
+    <button mat-flat-button>Contactează-ne</button>
+  </section>
+</div>

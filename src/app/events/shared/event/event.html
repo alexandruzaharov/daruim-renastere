@@ -1,0 +1,85 @@
+<div class="event">
+  <div class="event__image-wrapper">
+    <a [href]="image()" class="glightbox">
+      <img
+        [src]="image()"
+        class="event__image"
+        alt="Eveniment Viitor"
+      />
+    </a>
+  </div>
+  <div class="event__content">
+    <h4 class="event__title">{{ title() }}</h4>
+     <div class="event__location-tag">
+      <ng-icon class="event__icon" [name]="online() ? 'remixVideoOnFill' : 'remixPresentationFill'" size="1.8rem"></ng-icon>
+      <span>{{ online() ? 'Eveniment Online' : 'Eveniment Fizic' }}</span>
+    </div>
+
+    <div class="event__details">
+      <div class="event__details--left">
+        <div class="event__details__field">
+          <ng-icon class="event__icon" name="remixCalendarScheduleFill" size="2rem"></ng-icon>
+          <div>
+            <strong>Data si Ora: </strong>
+            <span>{{ date() }}</span>
+          </div>
+        </div>
+
+        @if (physicalLocation()) {
+          <div class="event__details__field">
+            <ng-icon class="event__icon" name="remixMapPinFill" size="2rem"></ng-icon>
+            <div>
+              <strong>Locatie: </strong>
+              <span>{{ physicalLocation() }}</span>
+            </div>
+          </div>
+        }
+
+        <div class="event__details__field">
+          <ng-icon class="event__icon" [name]="hosts().length == 1 ? 'remixUserFill' : 'remixGroupFill'" size="2rem"></ng-icon>
+          <div>
+            <strong>{{ hosts().length == 1 ? 'Gazda' : 'Gazdele' }} Evenimentului: </strong>
+            @for (host of hosts(); track $index) {
+              <span>{{ $index == 0 ? host : ', ' + host }}</span>
+            }
+          </div>
+        </div>
+
+        @if (whatsAppGroup()) {
+          <div class="event__details__field">
+            <ng-icon class="event__icon" name="remixWhatsappFill" size="2rem"></ng-icon>
+            <div>
+              <strong>
+                <span>Grup WhatsApp: </span>
+                <a [href]="whatsAppGroup()" target="_blank">Accesati grupul</a>
+              </strong>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (zoom()) {
+        <div class="event__details--right">
+          <div class="event__details__field">
+            <ng-icon class="event__icon" name="remixLink" size="2rem"></ng-icon>
+            <div>
+              <strong>
+                <span>Link Acces Zoom: </span>
+                <a [href]="zoom()?.link" target="_blank">Accesati linkul</a>
+              </strong>
+            </div>
+          </div>
+          <div>
+            <strong>Meeting ID: </strong>
+            <span>{{ zoom()?.meetingID }}</span>
+          </div>
+          <div>
+            <strong>Passcode: </strong><span>{{ zoom()?.passcode }}</span>
+          </div>
+        </div>
+      }
+    </div>
+    <h5 class="event__description__title">Detalii</h5>
+    <p class="event__description">{{ description() }}</p>
+  </div>
+</div>
