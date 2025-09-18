@@ -1,6 +1,8 @@
-const { onRequest } = require("firebase-functions/https");
+const { onRequest, onCall, HttpsError } = require("firebase-functions/https");
 const nodemailer = require('nodemailer');
 const cors = require('cors')({ origin: ['https://daruimrenastere.ro', 'https://daruim-renastere.web.app', 'http://localhost:5000'] });
+const admin = require('firebase-admin');
+admin.initializeApp();
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.eu',
@@ -113,4 +115,40 @@ exports.sendSamplesEmail = onRequest({ secrets: ['EMAIL_PASSWORD', 'TURNSTILE_SE
       res.status(500).json({ error: 'Eroare la trimiterea e-mailului', details: error.message });
     }
   });
+});
+
+// Funcție temporară pentru a seta adminul
+// exports.setInitialAdmin = onRequest(async (req, res) => {
+//   const email = 'sitedaruimrenastere@gmail.com';
+//   try {
+//     const user = await admin.auth().getUserByEmail(email);
+//     await admin.auth().setCustomUserClaims(user.uid, { admin: true });
+//     res.status(200).send(`Utilizatorul ${email} a fost setat ca admin.`);
+//   } catch (error) {
+//     res.status(500).send(`Eroare: ${error.message}`);
+//   }
+// });
+
+exports.setAdminRole = onCall(async (data, context) => {
+  // Verifică dacă cel care face cererea este autentificat și are rol de admin
+  if (!context.auth) {
+    throw new HttpsError('unauthenticated', 'Trebuie să fii autentificat.');
+  }
+
+  if (!context.auth.token.admin) {
+    throw new HttpsError('permission-denied', 'Doar adminii pot seta alți admini.');
+  }
+
+  const email = data.email;
+  if (!email) {
+    throw new HttpsError('invalid-argument', 'Email-ul este obligatoriu.');
+  }
+
+  try {
+    const user = await admin.auth().getUserByEmail(email);
+    await admin.auth().setCustomUserClaims(user.uid, { admin: true });
+    return { message: `Utilizatorul ${email} a fost setat ca admin.` };
+  } catch (error) {
+    throw new HttpsError('internal', `Eroare la setarea rolului de admin: ${error.message}`);
+  }
 });

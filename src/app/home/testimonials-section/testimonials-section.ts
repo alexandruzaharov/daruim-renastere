@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, PLATFORM_ID, viewChild } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { IntersectionObserverService } from '@shared/services/intersection-observer';
+import { IntersectionObserverService } from '@shared/services/intersection-observer/intersection-observer';
 import { SwiperContainer } from 'swiper/element';
 import { SwiperOptions } from 'swiper/types';
 

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EventVMData } from '@shared/services/events-data.model';
+import { EventVMData } from '@shared/services/events-data/events-data.model';
 
 type EventType = 'future' | 'past';
 

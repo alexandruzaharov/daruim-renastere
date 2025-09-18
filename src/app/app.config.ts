@@ -2,6 +2,8 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -23,6 +25,9 @@ export const appConfig: ApplicationConfig = {
       initializeApp(environment.firebase)
     ),
     provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideFunctions(() => getFunctions()),
+    // connectFunctionsEmulator(functions, 'localhost', 5001); // pentru emulator
     provideHttpClient(withFetch()),
   ]
 };

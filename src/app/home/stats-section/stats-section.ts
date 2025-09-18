@@ -7,7 +7,7 @@ import {
 } from '@angular/animations';
 import { isPlatformBrowser } from '@angular/common';
 import { afterNextRender, Component, ElementRef, inject, PLATFORM_ID, viewChild } from '@angular/core';
-import { IntersectionObserverService } from '@shared/services/intersection-observer';
+import { IntersectionObserverService } from '@shared/services/intersection-observer/intersection-observer';
 
 @Component({
   selector: 'app-stats-section',

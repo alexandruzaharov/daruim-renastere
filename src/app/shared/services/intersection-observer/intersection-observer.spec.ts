@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { IntersectionObserverService } from './intersection-observer';
 
 describe('IntersectionObserverService', () => {

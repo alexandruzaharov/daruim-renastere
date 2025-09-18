@@ -6,7 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { afterNextRender, Component, ElementRef, inject, viewChild } from '@angular/core';
-import { IntersectionObserverService } from '@shared/services/intersection-observer';
+import { IntersectionObserverService } from '@shared/services/intersection-observer/intersection-observer';
 
 @Component({
   selector: 'app-about-simona-section',

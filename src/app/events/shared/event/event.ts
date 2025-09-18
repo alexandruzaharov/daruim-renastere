@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { afterNextRender, Component, inject, input, PLATFORM_ID } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { remixCalendarScheduleFill, remixGroupFill, remixLink, remixMapPinFill, remixUserFill, remixWhatsappFill } from '@ng-icons/remixicon';
-import { Zoom } from '@shared/services/events-data.model';
+import { Zoom } from '@shared/services/events-data/events-data.model';
 
 @Component({
   selector: 'app-event',

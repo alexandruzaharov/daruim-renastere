@@ -12,7 +12,7 @@ import {
   Mentor,
   MonthlyMentor,
   MonthlyMentorsDoc,
-} from '@shared/services/enroll-data.model';
+} from '@shared/services/enroll-data/enroll-data.model';
 import {
   BehaviorSubject,
   combineLatest,

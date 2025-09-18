@@ -4,9 +4,9 @@ import { remixArrowDownDoubleLine, remixArrowLeftLongLine, remixPresentationFill
 import { EventComponent } from '../shared/event/event';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { EventVMData } from '@shared/services/events-data.model';
+import { EventVMData } from '@shared/services/events-data/events-data.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { EventsDataService } from '@shared/services/events-data';
+import { EventsDataService } from '@shared/services/events-data/events-data';
 import { EventCard } from "../shared/event-card/event-card";
 import { FilterEventsPipe } from '../shared/filter-by-pipe';
 import { MatButtonModule } from '@angular/material/button';

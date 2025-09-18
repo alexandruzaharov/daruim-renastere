@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIcon } from '@ng-icons/core';
-import { EventVMData } from '@shared/services/events-data.model';
+import { EventVMData } from '@shared/services/events-data/events-data.model';
 
 @Component({
   selector: 'app-event-card',

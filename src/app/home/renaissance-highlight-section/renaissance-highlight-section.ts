@@ -14,7 +14,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { IntersectionObserverService } from '@shared/services/intersection-observer';
+import { IntersectionObserverService } from '@shared/services/intersection-observer/intersection-observer';
 
 @Component({
   selector: 'app-renaissance-highlight-section',

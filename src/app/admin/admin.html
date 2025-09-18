@@ -1,0 +1,14 @@
+@let isLoading = isLoading$ | async;
+@let isAuthenticated = isAuthenticated$ | async;
+@let isAdmin = isAdmin$ | async;
+@if (!isLoading) {
+  @if (isAuthenticated && isAdmin) {
+    <h1>Panou de administrare</h1>
+    <p>Bine ai venit, admin!</p>
+    <button (click)="authService.logout()">Logout</button>
+  } @else {
+    <p>Acces interzis: doar adminii pot accesa această pagină.</p>
+  }
+} @else {
+  <app-loading></app-loading>
+}
