@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>Confirmare</h2>
+<mat-dialog-content>Ești sigur că vrei să ștergi evenimentul {{event.title}}?</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>Anulare</button>
+  <button matButton mat-dialog-close (click)="delete()" cdkFocusInitial>Șterge</button>
+</mat-dialog-actions>

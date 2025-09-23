@@ -1,0 +1,112 @@
+@use '@angular/material' as mat;
+
+.admin {
+  &__container {
+    height: calc(100vh - 80px);
+  }
+
+  &__sidenav {
+    width: 250px;
+    margin-top: 80px;
+    background-color: var(--pale-rose);
+
+    @include mat.sidenav-overrides((
+      container-shape: 0
+    ));
+
+    @media (max-width: 599px) {
+      width: 80%;
+    }
+  }
+
+  &__sidenav-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 1.6rem;
+    height: 64px;
+    background-color: var(--pale-rose);
+
+    &__greeting {
+      white-space: initial;
+    }
+  }
+
+  &__sidenav-close {
+    margin-left: auto;
+  }
+
+  &__menu-item {
+    @include mat.list-overrides((
+      list-item-focus-state-layer-opacity: 0,
+      active-indicator-shape: 0.5rem,
+      list-item-container-shape: 0.5rem
+    ));
+
+    &--active {
+      @include mat.list-overrides((
+        list-item-container-color: var(--soft-rose),
+        list-item-label-text-color: var(--pure-white),
+        list-item-focus-label-text-color: var(--pure-white),
+        list-item-hover-label-text-color: var(--pure-white)
+      ));
+    }
+  }
+
+  &__logout {
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  &__content {
+    padding: 0;
+    background-color: var(--pure-white);
+  }
+
+  &__content-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    padding: 2rem 1.6rem 0;
+    background-color: var(--pure-white);
+
+    &__title {
+      font-family: var(--button-title-font);
+      font-weight: var(--font-bold);
+      font-size: 2.2rem;
+      line-height: 1.3;
+      color: var(--deep-plum);
+    }
+  }
+
+  &__content-body {
+    padding: 1.6rem 1.6rem 4rem;
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .admin {
+    &__content-toolbar {
+      &__title {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .admin {
+    &__container {
+      height: calc(100vh - 112px);
+    }
+    &__sidenav {
+      margin-top: 112px;
+    }
+
+    &__content-toolbar {
+      justify-content: center;
+    }
+  }
+}

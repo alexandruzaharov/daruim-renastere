@@ -54,6 +54,10 @@ html {
     filled-container-shape: 0.5rem,
     filled-label-text-weight: 600,
   ));
+
+  @include mat.tooltip-overrides((
+    container-color: var(--steel-gray)
+  ))
 }
 
 html {
@@ -130,3 +134,8 @@ p {
 .mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
   min-width: initial !important;
 }
+
+/* Dialog */
+@include mat.dialog-overrides((
+  container-color: var((--pure-white))
+))

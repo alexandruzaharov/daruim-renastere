@@ -1,0 +1,152 @@
+@use '@angular/material' as mat;
+
+.events-settings {
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    &__button {
+      max-width: 211px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.6rem;
+      color: var(--deep-plum);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-bottom-color 0.3s ease, color 0.3s ease;
+
+      &.active {
+        border-bottom-color: var(--vibrant-rose);
+        color: var(--vibrant-rose);
+      }
+
+      &:hover {
+        color: var(--vibrant-rose);
+      }
+    }
+  }
+
+  &__start-date {
+    &__wrapper {
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
+    }
+
+    &__field {
+      flex: 1;
+    }
+  }
+
+  &__online {
+    margin-bottom: 1rem;
+  }
+
+  &__submit__label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__table {
+    overflow: hidden;
+    @include mat.table-overrides((
+      background-color: var(--pure-white)
+    ));
+
+    &__wrapper {
+      width: 100%;
+      overflow-x: auto;
+      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--pale-lilac-darker);
+      border-radius: 0.8rem;
+    }
+
+    &__delete-btn {
+      &:hover {
+        color: var(--vibrant-rose);
+      }
+    }
+  }
+}
+
+.hosts-section {
+  margin-bottom: 1.5rem;
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--pale-lilac-darker);
+  border-radius: 0.8rem;
+  border-left: 5px solid var(--muted-plum);
+
+  .full-width {
+    width: 100%;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+.upload-zone {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  position: relative;
+
+  &.active {
+    background-color: #f0f8ff;
+    border-color: #3f51b5;
+  }
+
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  img {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .events-settings {
+    &__tabs {
+      margin-bottom: 3rem;
+    }
+
+    &__start-date {
+      &__wrapper {
+        flex-direction: row;
+      }
+    }
+  }
+  .event-form {
+    padding: 3rem;
+  }
+}

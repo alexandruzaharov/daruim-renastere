@@ -1,8 +1,17 @@
 const { onRequest, onCall, HttpsError } = require("firebase-functions/https");
+const { onObjectFinalized } = require("firebase-functions/storage");
 const nodemailer = require('nodemailer');
-const cors = require('cors')({ origin: ['https://daruimrenastere.ro', 'https://daruim-renastere.web.app', 'http://localhost:5000'] });
+const cors = require('cors')({
+  origin: [
+    'https://daruimrenastere.ro',
+    'https://daruim-renastere.web.app',
+    'http://localhost:5000'
+  ]
+});
 const admin = require('firebase-admin');
+
 admin.initializeApp();
+const bucket = admin.storage().bucket();
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.eu',
@@ -152,3 +161,54 @@ exports.setAdminRole = onCall(async (data, context) => {
     throw new HttpsError('internal', `Eroare la setarea rolului de admin: ${error.message}`);
   }
 });
+
+// Funcție care rulează automat când se face upload la o imagine
+// exports.generateResizedImages = onObjectFinalized(async (event) => {
+//   const filePath = event.data.name;
+//   const contentType = event.data.contentType;
+//   const fileName = path.basename(filePath);
+
+//   if (!contentType.startsWith('image/')) {
+//     console.log('Nu este imagine, iesim.');
+//     return;
+//   }
+
+//   if (fileName.includes('_small') || fileName.includes('_large')) {
+//     console.log('Imagine deja procesata.');
+//     return;
+//   }
+
+//   // Descarcă fișierul temporar
+//   const tempFilePath = path.join(os.tmpdir(), fileName);
+//   await bucket.file(filePath).download({ destination: tempFilePath });
+//   console.log('Imagine descărcată:', tempFilePath);
+
+//   // Definim numele fișierelor redimensionate
+//   const smallFileName = fileName.replace(/\.(\w+)$/, '_small.$1');
+//   const largeFileName = fileName.replace(/\.(\w+)$/, "_large.$1");
+
+//   const smallFilePath = path.join(os.tmpdir(), smallFileName);
+//   const largeFilePath = path.join(os.tmpdir(), largeFileName);
+
+//   // Redimensionare cu sharp
+//   await sharp(tempFilePath).resize(400).toFile(smallFilePath);
+//   await sharp(tempFilePath).resize(1200).toFile(largeFilePath);
+
+//   // Upload în Storage
+//   const [smallUpload] = await bucket.upload(smallFilePath, {
+//     destination: `events/${smallFileName}`,
+//     metadata: { contentType }
+//   });
+
+//   const [largeUpload] = await bucket.upload(largeFilePath, {
+//     destination: `events/${largeFileName}`,
+//     metadata: { contentType }
+//   });
+
+//   // Ștergem fișierele temporare
+//   fs.unlinkSync(tempFilePath);
+//   fs.unlinkSync(smallFilePath);
+//   fs.unlinkSync(largeFilePath);
+
+//   console.log('Versiuni generate:', smallUpload.name, largeUpload.name);
+// });

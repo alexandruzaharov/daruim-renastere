@@ -1,5 +1,6 @@
 import { AsyncPipe, isPlatformServer } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, PLATFORM_ID } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@shared/services/auth/auth';
@@ -8,7 +9,12 @@ import { combineLatest, firstValueFrom, map, Observable, of, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, Loading, AsyncPipe],
+  imports: [
+    FormsModule,
+    MatButtonModule,
+    Loading,
+    AsyncPipe
+  ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -53,7 +59,7 @@ export class Login {
       const isAdmin = await firstValueFrom(this.authService.isAdmin());
       this.router.navigate([isAdmin ? '/admin' : '/home']);
     } catch (error: any) {
-      this.errorMessage = 'Eroare la autentificare: ' + (error.message || 'Verifică email-ul și parola.');
+      this.errorMessage = 'Eroare la autentificare: Verifică email-ul și parola.';
     }
   }
 }

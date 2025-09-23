@@ -119,6 +119,20 @@
           <ng-icon name="remixYoutubeFill"></ng-icon>
         </a>
       </div>
+      <div class="nav__admin">
+        <button
+          (click)="closeMenu()"
+          matIconButton
+          matTooltip="Panou de Admin"
+          aria-label="Panou de Admin"
+          routerLink="/admin"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="active">
+          <div>
+            <ng-icon name="remixAdminFill" size="2.4rem"></ng-icon>
+          </div>
+        </button>
+      </div>
     </div>
   </nav>
 </header>

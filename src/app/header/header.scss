@@ -96,6 +96,18 @@
             }
         }
     }
+
+    &__admin {
+        padding-inline: 1.6rem;
+
+        button {
+            color: var(--deep-plum);
+
+            &:hover {
+                color: var(--soft-rose);
+            }
+        }
+    }
 }
 
 /* Show icon */
@@ -168,7 +180,7 @@
 }
 
 // Navigation for mobile devices
-@media (max-width: 1175px) {
+@media (max-width: 1200px) {
     .nav {
         &.shrunk {
             .nav__menu {
@@ -216,7 +228,7 @@
 }
 
 /* For large devices */
-@media (min-width: 1175px) {
+@media (min-width: 1200px) {
     .container {
         margin-inline: auto;
     }
@@ -290,13 +302,22 @@
             }
 
             &.active {
-                color: var(--rich-burgundy);
+                color: var(--warm-mauve);
                 background-color: transparent;
             }
         }
 
         &__social {
             padding: 0;
+            &-link {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        &__admin {
+            padding: 0 0 0 2.8rem;
+            border-left: 1px solid var(--pastel-lavender);;
         }
     }
     

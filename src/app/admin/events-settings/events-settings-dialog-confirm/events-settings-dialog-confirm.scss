@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+
+:host {
+  @include mat.dialog-overrides((
+    subhead-size: 2.5rem,
+    subhead-line-height: 1.5,
+    subhead-font: var(--button-title-font),
+    supporting-text-size: 1.6rem,
+    supporting-text-line-height: 2,
+  ));
+}

@@ -2,7 +2,7 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Auth, authState, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { Functions, httpsCallable } from '@angular/fire/functions';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +95,19 @@ export class AuthService {
     } else {
       this.isAdminSubject.next(false);
     }
+  }
+
+  getUsername(): Observable<string | null> {
+    if (isPlatformServer(this.platformId)) {
+      return of(null);
+    }
+    return this.currentUser$.pipe(
+      map(user => {
+        if (user && user.email) {
+          return user.email.split('@')[0];
+        }
+        return null;
+      })
+    );
   }
 }

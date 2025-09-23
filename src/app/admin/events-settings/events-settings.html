@@ -1,0 +1,205 @@
+<div class="events-settings__tabs">
+  <button
+    class="events-settings__tabs__button"
+    [class.active]="activeTab === 0"
+    (click)="setActiveTab(0)">
+    Adaugă Eveniment
+  </button>
+  <button
+    class="events-settings__tabs__button"
+    [class.active]="activeTab === 1"
+    (click)="setActiveTab(1)">
+    Șterge Eveniment
+  </button>
+</div>
+
+@if (activeTab === 0) {
+  <form [formGroup]="eventForm" (ngSubmit)="saveEvent()" class="event-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titlu</mat-label>
+      <input matInput formControlName="title" required />
+    </mat-form-field>
+  
+    <div class="hosts-section">
+      <div formArrayName="hosts">
+        @for (host of hosts.controls; track $index) {
+          <div class="host-item">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Gazdă</mat-label>
+              <input matInput [formControlName]="$index" required />
+              @if ($index !== 0) {
+                <button mat-icon-button matSuffix color="warn" type="button" (click)="removeHost($index)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              }
+            </mat-form-field>
+          </div>
+        }
+      </div>
+  
+      <button mat-stroked-button color="primary" type="button" (click)="addHost()">+ Adaugă gazdă</button>
+    </div>
+  
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descriere</mat-label>
+      <textarea matInput rows="10" formControlName="description" required></textarea>
+    </mat-form-field>
+  
+    <div class="events-settings__start-date__wrapper">
+      <mat-form-field appearance="outline" class="events-settings__start-date__field">
+        <mat-label>Data început</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startDateTime" required />
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline" class="events-settings__start-date__field">
+        <mat-label>Ora de început</mat-label>
+        <input
+          matInput
+          [matTimepicker]="pickerStartTime"
+          placeholder="Selectează ora"
+          formControlName="startTime"
+          required />
+          <mat-timepicker-toggle matSuffix [for]="pickerStartTime"></mat-timepicker-toggle>
+          <mat-timepicker #pickerStartTime></mat-timepicker>
+      </mat-form-field>
+    </div>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Data sfârșit</mat-label>
+      <input matInput [matDatepicker]="endPicker" formControlName="endDateTime" />
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-slide-toggle
+      formControlName="online"
+      class="events-settings__online"
+      >Eveniment online
+    </mat-slide-toggle>
+  
+    <!-- Câmpuri pentru online -->
+     @if (eventForm.get('online')?.value) {
+      <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Link Zoom</mat-label>
+          <input matInput formControlName="linkZoom" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Meeting ID</mat-label>
+          <input matInput formControlName="meetingID" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Passcode</mat-label>
+          <input matInput formControlName="passcode" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Grup WhatsApp</mat-label>
+          <input matInput formControlName="whatsAppGroup" />
+        </mat-form-field>
+      </div>
+    } @else {
+      <!-- Câmpuri pentru fizic -->
+       <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Locație fizică</mat-label>
+          <input matInput formControlName="physicalLocation" />
+        </mat-form-field>
+      </div>
+    }
+  
+    <!-- Upload imagine -->
+     @if (imagePreview) {
+      <div class="image-preview">
+        <img [src]="imagePreview" alt="Preview imagine" />
+        <button
+          mat-icon-button
+          color="warn"
+          type="button"
+          (click)="removeImage()"
+          aria-label="Șterge imaginea"
+          >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    } @else {
+      <div
+        class="upload-zone mat-elevation-z2"
+        (drop)="onFileDropped($event)"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        [class.active]="isDragOver">
+        <p>Trage și plasează imaginea aici</p>
+        <button
+          mat-stroked-button
+          color="primary"
+          type="button"
+          (click)="fileInput.click()"
+          >Selectează fișier</button>
+          <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onFileSelected($event)"
+        />
+      </div>
+    }
+  
+    <div class="form-actions">
+      <button
+        mat-flat-button
+        type="submit"
+        [disabled]="!eventForm.valid || !selectedFile || isSubmitting || isResizing"
+        >
+        <div class="events-settings__submit__label">
+          @if (isSubmitting) {
+            <mat-spinner [diameter]="18"></mat-spinner>
+            <span>Se salvează..</span>
+          } @else {Salvează}
+        </div>
+      </button>
+    </div>
+  </form>
+}
+
+@let vm = vm$ | async;
+@if (activeTab === 1 && vm) {
+  <div class="events-settings__table__wrapper">
+    <table mat-table [dataSource]="vm" class="mat-elevation-z8 events-settings__table">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Titlu </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="hosts">
+        <th mat-header-cell *matHeaderCellDef> Gazdă </th>
+        <td mat-cell *matCellDef="let element"> {{element.hosts.join(', ')}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Dată </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Acțiune </th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            type="button"
+            aria-label="Șterge evenimentul"
+            class="events-settings__table__delete-btn"
+            (click)="deleteEvent(element)"
+            >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+}

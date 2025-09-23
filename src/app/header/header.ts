@@ -6,9 +6,12 @@ import {
   inject,
   PLATFORM_ID,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
+  remixAdminFill,
   remixArrowDownSLine,
   remixCloseLine,
   remixFacebookFill,
@@ -19,7 +22,14 @@ import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [NgIcon, RouterLink, RouterLinkActive, CommonModule],
+  imports: [
+    NgIcon,
+    RouterLink,
+    RouterLinkActive,
+    CommonModule,
+    MatButtonModule,
+    MatTooltipModule
+  ],
   providers: [
     provideIcons({
       remixArrowDownSLine,
@@ -27,6 +37,7 @@ import { fromEvent } from 'rxjs';
       remixCloseLine,
       remixFacebookFill,
       remixYoutubeFill,
+      remixAdminFill
     }),
   ],
   templateUrl: './header.html',

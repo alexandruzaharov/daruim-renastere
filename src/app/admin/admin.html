@@ -1,11 +1,74 @@
 @let isLoading = isLoading$ | async;
 @let isAuthenticated = isAuthenticated$ | async;
 @let isAdmin = isAdmin$ | async;
+@let isMobile = isMobile$ | async;
 @if (!isLoading) {
   @if (isAuthenticated && isAdmin) {
-    <h1>Panou de administrare</h1>
-    <p>Bine ai venit, admin!</p>
-    <button (click)="authService.logout()">Logout</button>
+    <section class="admin">
+      <mat-sidenav-container class="admin__container">
+        <mat-sidenav
+          class="admin__sidenav"
+          [mode]="(isMobile) ? 'over' : 'side'"
+          [(opened)]="isSidenavOpen"
+          [fixedInViewport]="true"
+          [fixedTopGap]="0">
+          <mat-toolbar class="admin__sidenav-toolbar">
+            @if (username$ |async; as username) {
+              <span class="admin__sidenav-toolbar__greeting">Bine ai venit, {{ username }}!</span>
+              @if (isMobile) {
+                <button
+                  mat-icon-button
+                  (click)="toggleSidenav(isMobile)"
+                  class="admin__sidenav-close">
+                  <mat-icon>close</mat-icon>
+                </button>
+              }
+            }
+          </mat-toolbar>
+
+          <mat-nav-list>
+            <a
+              mat-list-item
+              routerLink="events-settings"
+              class="admin__menu-item"
+              routerLinkActive="admin__menu-item--active"
+              (click)="toggleSidenav(isMobile)"
+              >Evenimente</a>
+            <a
+              mat-list-item
+              routerLink="mentors-settings"
+              class="admin__menu-item"
+              routerLinkActive="admin__menu-item--active"
+              (click)="toggleSidenav(isMobile)"
+              >Îndrumători</a>
+            <a
+              mat-list-item
+              routerLink="testimonials-settings"
+              class="admin__menu-item"
+              routerLinkActive="admin__menu-item--active"
+              (click)="toggleSidenav(isMobile)"
+              >Testimoniale</a>
+            <div class="admin__logout">
+              <button mat-flat-button (click)="authService.logout()">Deconectare</button>
+            </div>
+          </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="admin__content">
+          <mat-toolbar class="admin__content-toolbar">
+            @if (isMobile) {
+              <button mat-icon-button (click)="toggleSidenav(isMobile)">
+                <mat-icon>menu</mat-icon>
+              </button>
+            }
+            <h1 class="admin__content-toolbar__title">Panou de administrare</h1>
+          </mat-toolbar>
+          <div class="admin__content-body">
+            <router-outlet></router-outlet>
+          </div>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </section>
   } @else {
     <p>Acces interzis: doar adminii pot accesa această pagină.</p>
   }
