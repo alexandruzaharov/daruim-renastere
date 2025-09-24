@@ -18,6 +18,10 @@ export interface EventVMData {
   isOngoing?: boolean;
 }
 
+export interface EventsDialogData extends EventVMData {
+  collection: string;
+}
+
 export interface Zoom {
   link: string;
   meetingID: string;

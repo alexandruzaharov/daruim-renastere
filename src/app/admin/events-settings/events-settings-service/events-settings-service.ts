@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { deleteDoc, doc, Firestore } from '@angular/fire/firestore';
 import { Storage, deleteObject, ref } from '@angular/fire/storage';
-import { EventVMData } from '@shared/services/events-data/events-data.model';
+import { EventsDialogData } from '@shared/services/events-data/events-data.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationSnackbar } from '@shared/components/notification-snackbar/notification-snackbar';
 import { NotificationData } from '@shared/components/notification-snackbar/notification-snackbar.data';
@@ -14,10 +14,10 @@ export class EventsSettingsService {
   private storage = inject(Storage);
   private snackBar = inject(MatSnackBar);
   
-  public async deleteEvent(event: EventVMData): Promise<void> {
+  public async deleteEvent(event: EventsDialogData): Promise<void> {
     try {
       await this.deleteEventImages(event.imageSmall, event.imageLarge);
-      const eventRef = doc(this.firestore, 'eventsGiveRenaissance', event.id);
+      const eventRef = doc(this.firestore, event.collection, event.id);
       await deleteDoc(eventRef);
       this.snackBar.openFromComponent(NotificationSnackbar, {
         duration: 3000,

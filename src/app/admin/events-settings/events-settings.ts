@@ -290,9 +290,12 @@ export class EventsSettings implements OnInit {
     this.cdr.detectChanges();
   }
 
-  public async deleteEvent(event: EventVMData) {
+  public async deleteEvent(event: EventVMData, collection: string) {
     this.dialog.open(EventsSettingsDialogConfirm, {
-      data: event
+      data: {
+        ...event,
+        collection
+      }
     });
   }
 

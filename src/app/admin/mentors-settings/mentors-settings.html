@@ -1,1 +1,36 @@
-<p>Alege îndrumatorii desemnați pentru fiecare lună:</p>
+<h2 class="monthly-mentors__description">Alege îndrumatorii desemnați pentru fiecare lună</h2>
+@if (form) {
+  <div class="monthly-mentors">
+    <form [formGroup]="form" class="form">
+      @for (monthName of months; track $index) {
+        <div class="month-row">
+          <span class="month-label">{{ monthName }}</span>
+          <mat-form-field appearance="outline">
+            <mat-label>Selectează îndrumător</mat-label>
+            <mat-select [formControlName]="$index + 1">
+              @for (mentor of mentors$ | async; track $index) {
+                <mat-option [value]="mentor.id" class="mentor__dropdown-option">
+                  <div class="mentor__option">
+                    <img [src]="mentor.photo" [alt]="mentor.name" class="mentor__option-photo" />
+                    <span>{{ mentor.name }}</span>
+                  </div>
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      }
+    </form>
+  
+    <div class="monthly-mentors__save-btn">
+      <button mat-flat-button [disabled]="isSaving" (click)="save()">
+        <div class="monthly-mentors__save-btn__label">
+          @if (isSaving) {
+            <mat-spinner [diameter]="18"></mat-spinner>
+            <span>Se salvează..</span>
+          } @else {Salvează}
+        </div>
+      </button>
+    </div>
+  </div>
+}

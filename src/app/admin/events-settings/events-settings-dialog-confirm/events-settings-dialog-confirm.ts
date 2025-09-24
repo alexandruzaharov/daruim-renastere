@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from '@angular/material/dialog';
-import { EventVMData } from '@shared/services/events-data/events-data.model';
+import { EventsDialogData } from '@shared/services/events-data/events-data.model';
 import { EventsSettingsService } from '../events-settings-service/events-settings-service';
 
 @Component({
@@ -18,7 +18,7 @@ import { EventsSettingsService } from '../events-settings-service/events-setting
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventsSettingsDialogConfirm {
-  public event: EventVMData = inject(MAT_DIALOG_DATA);
+  public event: EventsDialogData = inject(MAT_DIALOG_DATA);
   private eventsSettingsService = inject(EventsSettingsService);
 
   public delete() {
