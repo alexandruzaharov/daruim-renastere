@@ -69,13 +69,17 @@
               </strong>
             </div>
           </div>
-          <div>
-            <strong>Meeting ID: </strong>
-            <span>{{ zoom()?.meetingID }}</span>
-          </div>
-          <div>
-            <strong>Passcode: </strong><span>{{ zoom()?.passcode }}</span>
-          </div>
+          @if (zoom()?.meetingID) {
+            <div>
+              <strong>Meeting ID: </strong>
+              <span>{{ zoom()?.meetingID }}</span>
+            </div>
+          }
+          @if (zoom()?.passcode) {
+            <div>
+              <strong>Passcode: </strong><span>{{ zoom()?.passcode }}</span>
+            </div>
+          }
         </div>
       }
     </div>

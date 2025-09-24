@@ -12,7 +12,7 @@ export class EventsDataService {
   private firestore = inject(Firestore);
   private eventsGiveRenaissanceQuery = query(
     collection(this.firestore, 'eventsGiveRenaissance'),
-    orderBy('startDateTime', 'asc')
+    orderBy('startDateTime', 'desc')
   );
 
   private eventsGiveRenaissance$: Observable<EventVMData[]> = (

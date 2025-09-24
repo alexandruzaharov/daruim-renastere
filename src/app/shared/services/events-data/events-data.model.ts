@@ -24,6 +24,6 @@ export interface EventsDialogData extends EventVMData {
 
 export interface Zoom {
   link: string;
-  meetingID: string;
-  passcode: string;
+  meetingID?: string;
+  passcode?: string;
 }

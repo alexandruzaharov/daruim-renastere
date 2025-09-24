@@ -10,6 +10,7 @@ import { EventsDataService } from '@shared/services/events-data/events-data';
 import { EventCard } from "../shared/event-card/event-card";
 import { FilterEventsPipe } from '../shared/filter-by-pipe';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-give-renaissance',
@@ -19,7 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     EventComponent,
     EventCard,
-    FilterEventsPipe
+    FilterEventsPipe,
+    RouterLink
 ],
   providers: [
     provideIcons({

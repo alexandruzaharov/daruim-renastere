@@ -89,8 +89,14 @@ export class EventsSettings implements OnInit {
     this.eventForm.get('online')?.valueChanges.subscribe((isOnline: boolean) => {
       if (isOnline) {
         this.setOnlineValidators();
+        this.eventForm.get('physicalLocation')?.reset();
       } else {
         this.setOfflineValidators();
+        this.eventForm.get('linkZoom')?.reset();
+        this.eventForm.get('meetingID')?.reset();
+        this.eventForm.get('passcode')?.reset();
+        this.eventForm.get('whatsAppGroup')?.reset();
+
       }
     });
 
@@ -301,31 +307,18 @@ export class EventsSettings implements OnInit {
 
   private setOnlineValidators() {
     this.eventForm.get('linkZoom')?.setValidators([Validators.required]);
-    this.eventForm.get('meetingID')?.setValidators([Validators.required]);
-    this.eventForm.get('passcode')?.setValidators([Validators.required]);
-    this.eventForm.get('whatsAppGroup')?.setValidators([Validators.required]);
-
     this.eventForm.get('physicalLocation')?.clearValidators();
-
     this.updateValidation();
   }
 
   private setOfflineValidators() {
     this.eventForm.get('physicalLocation')?.setValidators([Validators.required]);
-
     this.eventForm.get('linkZoom')?.clearValidators();
-    this.eventForm.get('meetingID')?.clearValidators();
-    this.eventForm.get('passcode')?.clearValidators();
-    this.eventForm.get('whatsAppGroup')?.clearValidators();
-
     this.updateValidation();
   }
 
   private updateValidation() {
     this.eventForm.get('linkZoom')?.updateValueAndValidity();
-    this.eventForm.get('meetingID')?.updateValueAndValidity();
-    this.eventForm.get('passcode')?.updateValueAndValidity();
-    this.eventForm.get('whatsAppGroup')?.updateValueAndValidity();
     this.eventForm.get('physicalLocation')?.updateValueAndValidity();
   }
 }

@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 .hero {
   position: relative;
   width: 100%;
@@ -133,6 +135,36 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   padding-bottom: 2rem;
+}
+
+.call-to-action {
+  background-color: var(--pastel-lavender);
+  padding: 4rem 0;
+
+  .container {
+    padding-inline: 2rem;
+  }
+
+  &__title {
+    color: var(--deep-plum);
+  }
+
+  &__description {
+    margin: 2rem 0;
+  }
+
+  &__btn-wrapper {
+    display: flex;
+    gap: 2rem;
+
+    button:nth-child(1) {
+      border: 2px solid var(--deep-plum);
+      @include mat.button-overrides((
+        filled-container-color: transparent,
+        filled-label-text-color: var(--deep-plum)
+      ));
+    }
+  }
 }
 
 /* For laptop */
