@@ -106,6 +106,32 @@
     grid-template-columns: repeat(1, 1fr);
     column-gap: 2rem;
     row-gap: 3rem;
+
+    &__empty-state {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--pale-lilac-darker);
+      border-radius: 0.8rem;
+      padding: 3rem;
+
+      &__icon {
+        font-size: 5rem;
+        width: 5rem;
+        height: 5rem;
+        line-height: 5rem;
+        @include mat.icon-overrides((
+          color: var(--pale-rose)
+        ));
+      }
+
+      &__text {
+        color: var(--steel-gray);
+      }
+    }
   }
 }
 
@@ -193,6 +219,10 @@
 
     &__items {
       grid-template-columns: repeat(3, 1fr);
+
+      &__empty-state {
+        padding: 8rem;
+      }
     }
   }
 }

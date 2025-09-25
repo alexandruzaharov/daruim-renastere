@@ -10,6 +10,7 @@ import { EventsDataService } from '@shared/services/events-data/events-data';
 import { EventCard } from "../shared/event-card/event-card";
 import { FilterEventsPipe } from '../shared/filter-by-pipe';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -18,11 +19,12 @@ import { RouterLink } from '@angular/router';
     AsyncPipe,
     NgIcon,
     MatButtonModule,
+    MatIconModule,
     EventComponent,
     EventCard,
     FilterEventsPipe,
     RouterLink
-],
+  ],
   providers: [
     provideIcons({
       remixArrowDownDoubleLine,

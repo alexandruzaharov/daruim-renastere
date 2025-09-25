@@ -1,0 +1,235 @@
+@use "@angular/material" as mat;
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 55vh;
+  background: url('/images/view-cats-dogs-being-friends.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pure-white);
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(82, 48, 91, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  &__content {
+    max-width: 800px;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+  }
+
+  &__subtitle {
+    margin-bottom: 1rem;
+  }
+
+  &__highlight {
+    font-size: 1.4rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    color: #f0f0f0;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.about {
+  padding: 4rem 2rem;
+
+  &__title {
+    color: var(--deep-plum);
+    margin-bottom: 2rem;
+  }
+
+  &__text:first-of-type {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.events {
+  padding: 0 2rem 4rem;
+
+  &__title {
+    color: var(--deep-plum);
+    margin-bottom: 1rem;
+  }
+
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    &__button {
+      max-width: 140px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.6rem;
+      color: var(--deep-plum);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-bottom-color 0.3s ease, color 0.3s ease;
+
+      &.active {
+        border-bottom-color: var(--vibrant-rose);
+        color: var(--vibrant-rose);
+      }
+
+      &:hover {
+        color: var(--vibrant-rose);
+      }
+    }
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    column-gap: 2rem;
+    row-gap: 3rem;
+
+    &__empty-state {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--pale-lilac-darker);
+      border-radius: 0.8rem;
+      padding: 3rem;
+
+      &__icon {
+        font-size: 5rem;
+        width: 5rem;
+        height: 5rem;
+        line-height: 5rem;
+        @include mat.icon-overrides((
+          color: var(--pale-rose)
+        ));
+      }
+
+      &__text {
+        color: var(--steel-gray);
+      }
+    }
+  }
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--deep-plum);
+  margin-bottom: 2rem;
+
+  &__text {
+    font-size: 1.6rem;
+    font-family: var(--button-title-font);
+    font-weight: var(--font-semi-bold);
+  }
+}
+
+.event-card {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 6;
+  row-gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding-bottom: 2rem;
+}
+
+.call-to-action {
+  background-color: var(--pastel-lavender);
+  padding: 4rem 0;
+
+  .container {
+    padding-inline: 2rem;
+  }
+
+  &__title {
+    color: var(--deep-plum);
+  }
+
+  &__description {
+    margin: 2rem 0;
+  }
+
+  &__btn-wrapper {
+    display: flex;
+    gap: 2rem;
+
+    button:nth-child(1) {
+      border: 2px solid var(--deep-plum);
+      @include mat.button-overrides((
+        filled-container-color: transparent,
+        filled-label-text-color: var(--deep-plum)
+      ));
+    }
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .hero {
+    min-height: 40vh;
+
+    &__title {
+      font-size: 3rem;
+      margin-bottom: 5rem;
+    }
+
+    &__subtitle {
+      font-size: 1.8rem;
+    }
+
+    &__highlight {
+      font-size: 1.6rem;
+    }
+  }
+
+  .events {
+    &__tabs__button {
+      max-width: initial;
+    }
+
+    &__items {
+      grid-template-columns: repeat(3, 1fr);
+
+      &__empty-state {
+        padding: 8rem;
+      }
+    }
+  }
+}
+
+/* For large devices */
+@media (min-width: 1024px) {
+  .events__items {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

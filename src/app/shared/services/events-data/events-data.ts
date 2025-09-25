@@ -15,43 +15,63 @@ export class EventsDataService {
     orderBy('startDateTime', 'desc')
   );
 
+  private eventsGiftOfAnimalsQuery = query(
+    collection(this.firestore, 'eventsGiftOfAnimals'),
+    orderBy('startDateTime', 'desc')
+  );
+
   private eventsGiveRenaissance$: Observable<EventVMData[]> = (
     collectionData(this.eventsGiveRenaissanceQuery, { idField: 'id' }) as Observable<EventVMData[]>
+  ).pipe(shareReplay(1));
+
+  private eventsGiftOfAnimals$: Observable<EventVMData[]> = (
+    collectionData(this.eventsGiftOfAnimalsQuery, { idField: 'id' }) as Observable<EventVMData[]>
   ).pipe(shareReplay(1));
 
   public vmEventsGiveRenaissance$: Observable<EventVMData[]> = combineLatest([
     this.eventsGiveRenaissance$
   ]).pipe(
     map(([eventsGiveRenaissance]) => {
-      return eventsGiveRenaissance.map(event => {
-        const currentDate = new Date();
-        const startDateTime = event.startDateTime.toDate();
-        const endDateTime = event.endDateTime?.toDate();
-
-        const currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-        const startDateOnly = new Date(startDateTime.getFullYear(), startDateTime.getMonth(), startDateTime.getDate());
-        const endDateOnly = endDateTime ? new Date(endDateTime.getFullYear(), endDateTime.getMonth(), endDateTime.getDate()) : null;
-
-        const isFuture = isAfter(startDateOnly, currentDateOnly);
-        let isOngoing = false;
-        if (endDateOnly) {
-          isOngoing = !isBefore(currentDateOnly, startDateOnly) && !isAfter(currentDateOnly, endDateOnly);
-        } else {
-          isOngoing = startDateOnly.getTime() === currentDateOnly.getTime();
-        }
-
-        const formatedEventData: EventVMData = {
-          ...event,
-          date: this.formatEventDate(event),
-          isFuture,
-          isOngoing
-        };
-
-        return formatedEventData;
-      });
+      return eventsGiveRenaissance.map(event => this.formatEventData(event));
     }),
     shareReplay(1)
   );
+
+  public vmEventsGiftOfAnimals$: Observable<EventVMData[]> = combineLatest([
+    this.eventsGiftOfAnimals$
+  ]).pipe(
+    map(([eventsGiftOfAnimals]) => {
+      return eventsGiftOfAnimals.map(event => this.formatEventData(event));
+    }),
+    shareReplay(1)
+  );
+
+  private formatEventData(event: EventVMData): EventVMData {
+    const currentDate = new Date();
+    const startDateTime = event.startDateTime.toDate();
+    const endDateTime = event.endDateTime?.toDate();
+
+    const currentDateOnly = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    const startDateOnly = new Date(startDateTime.getFullYear(), startDateTime.getMonth(), startDateTime.getDate());
+    const endDateOnly = endDateTime ? new Date(endDateTime.getFullYear(), endDateTime.getMonth(), endDateTime.getDate()) : null;
+
+    const isFuture = isAfter(startDateOnly, currentDateOnly);
+    let isOngoing = false;
+    if (endDateOnly) {
+      isOngoing = !isBefore(currentDateOnly, startDateOnly) && !isAfter(currentDateOnly, endDateOnly);
+    } else {
+      isOngoing = startDateOnly.getTime() === currentDateOnly.getTime();
+    }
+
+    const formatedEventData: EventVMData = {
+      ...event,
+      date: this.formatEventDate(event),
+      isFuture,
+      isOngoing
+    };
+
+    return formatedEventData;
+  }
 
   public formatEventDate(event: EventVMData): string {
     const startDate = event.startDateTime.toDate();

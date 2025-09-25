@@ -5,6 +5,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -31,6 +32,7 @@ import { EventsSettingsDialogConfirm } from './events-settings-dialog-confirm/ev
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatDatepickerModule,
     MatTimepickerModule,
     MatIconModule,
@@ -51,7 +53,8 @@ export class EventsSettings implements OnInit {
   private readonly dialog = inject(MatDialog);
   private cdr = inject(ChangeDetectorRef);
 
-  public vm$: Observable<EventVMData[]> = this.eventsDataService.vmEventsGiveRenaissance$;
+  public vmGiveRenaissance$: Observable<EventVMData[]> = this.eventsDataService.vmEventsGiveRenaissance$;
+  public vmGiftOfAnimals$: Observable<EventVMData[]> = this.eventsDataService.vmEventsGiftOfAnimals$;
   public eventForm: FormGroup;
   public selectedFile: File | null = null;
   public imagePreview: string | null = null;
@@ -59,6 +62,7 @@ export class EventsSettings implements OnInit {
   public isSubmitting: boolean = false;
   public isResizing: boolean = false;
   public activeTab = 0;
+  public eventTypeActiveTab = 0;
   public displayedColumns: string[] = ['title', 'hosts', 'date', 'delete'];
 
   private smallFile?: File;
@@ -68,6 +72,7 @@ export class EventsSettings implements OnInit {
 
   constructor() {
     this.eventForm = this.fb.group({
+      eventType: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
       hosts: this.fb.array([this.fb.control('', Validators.required)]),
@@ -123,6 +128,11 @@ export class EventsSettings implements OnInit {
 
   public setActiveTab(index: number): void {
     this.activeTab = index;
+  }
+
+  public setEventTypeActiveTab(index: number): void {
+    this.eventTypeActiveTab = index;
+    this.cdr.detectChanges();
   }
 
   public onDragOver(event: DragEvent) {
@@ -260,7 +270,7 @@ export class EventsSettings implements OnInit {
     }
 
     try {
-      const eventsCollection = collection(this.firestore, 'eventsGiveRenaissance');
+      let eventsCollection = collection(this.firestore, this.eventForm.value.eventType);;
       await addDoc(eventsCollection, {
         ...eventData,
         createdAt: serverTimestamp()
@@ -296,11 +306,11 @@ export class EventsSettings implements OnInit {
     this.cdr.detectChanges();
   }
 
-  public async deleteEvent(event: EventVMData, collection: string) {
+  public async deleteEvent(event: EventVMData) {
     this.dialog.open(EventsSettingsDialogConfirm, {
       data: {
         ...event,
-        collection
+        collection: this.eventTypeActiveTab === 0 ? 'eventsGiveRenaissance' : 'eventsGiftOfAnimals'
       }
     });
   }

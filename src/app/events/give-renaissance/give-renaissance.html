@@ -74,35 +74,58 @@
       </div>
     }
     @else {
-      <div class="events__items">
-        @let vm = vm$ | async;
-        @if (activeTab === 0 && vm) {
+      @let vm = vm$ | async;
+      @if (activeTab === 0 && vm) {
+        @if (!(vm | filterEvents: 'future').length) {
+          <div class="events__items__empty-state">
+            <mat-icon class="events__items__empty-state__icon">event_busy</mat-icon>
+            <div class="events__items__empty-state__text">
+              <p>Momentan nu sunt evenimente viitoare.</p>
+              <p>Poți vedea evenimentele din trecut.</p>
+            </div>
+          </div>
+        }
+
+        <div class="events__items">
           @for (event of vm | filterEvents: 'future'; track $index) {
             @if (!hideCard || pendingEvent?.id !== event.id) {
               <app-event-card
-                [@cardSmall]="isTabSwitching ? 'tabSwitch' : 'default'"
-                class="event-card"
-                [event]="event"
-                (@cardSmall.done)="onCardAnimationDone()"
-                (cardClicked)="viewEventDetails($event)"
+              [@cardSmall]="isTabSwitching ? 'tabSwitch' : 'default'"
+              class="event-card"
+              [event]="event"
+              (@cardSmall.done)="onCardAnimationDone()"
+              (cardClicked)="viewEventDetails($event)"
               ></app-event-card>
             }
           }
+        </div>
+        
+      }
+      @if (activeTab === 1 && vm) {
+        @if (!(vm | filterEvents: 'past').length) {
+          <div class="events__items__empty-state">
+            <mat-icon class="events__items__empty-state__icon">event_busy</mat-icon>
+            <div class="events__items__empty-state__text">
+              <p>Momentan nu sunt evenimente din trecut.</p>
+              <p>Poți vedea evenimentele din viitor.</p>
+            </div>
+          </div>
         }
-        @if (activeTab === 1 && vm) {
+
+        <div class="events__items">
           @for (event of vm | filterEvents: 'past'; track $index) {
             @if (!hideCard || pendingEvent?.id !== event.id) {
               <app-event-card
-                [@cardSmall]="isTabSwitching ? 'tabSwitch' : 'default'"
-                class="event-card"
-                [event]="event"
-                (@cardSmall.done)="onCardAnimationDone()"
-                (cardClicked)="viewEventDetails($event)"
+              [@cardSmall]="isTabSwitching ? 'tabSwitch' : 'default'"
+              class="event-card"
+              [event]="event"
+              (@cardSmall.done)="onCardAnimationDone()"
+              (cardClicked)="viewEventDetails($event)"
               ></app-event-card>
             }
           }
-        }
-      </div>
+        </div>
+      }
     }
   </section>
 </div>

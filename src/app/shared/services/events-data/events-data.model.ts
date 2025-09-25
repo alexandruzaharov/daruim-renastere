@@ -1,5 +1,7 @@
 import { Timestamp } from "@angular/fire/firestore";
 
+type EventDataType = 'eventsGiveRenaissance' | 'eventsGiftOfAnimals';
+
 export interface EventVMData {
   id: string;
   imageSmall: string;

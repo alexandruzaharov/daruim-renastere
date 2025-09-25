@@ -7,6 +7,10 @@
     flex-wrap: wrap;
     margin-bottom: 2rem;
 
+    &--align-left {
+      justify-content: start;
+    }
+
     &__button {
       max-width: 211px;
       padding: 0.8rem 1.5rem;
