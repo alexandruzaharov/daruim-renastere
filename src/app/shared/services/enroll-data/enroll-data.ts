@@ -5,6 +5,8 @@ import {
   doc,
   docData,
   Firestore,
+  orderBy,
+  query,
 } from '@angular/fire/firestore';
 import {
   EnrollVMData,
@@ -28,15 +30,19 @@ export class EnrollDataService {
   private firestore = inject(Firestore);
   private selectedMentorId$ = new BehaviorSubject<string | null>(null);
 
-  private mentorsCollection = collection(this.firestore, 'mentors');
   private kitsCollection = collection(this.firestore, 'kits');
   private monthlyMentorsDoc = doc(
     this.firestore,
     'monthlyMentors/3jl5AjORuvYN09YZuXAk'
   );
 
+  private mentorsQuery = query(
+    collection(this.firestore, 'mentors'),
+    orderBy('nameNormalized', 'asc')
+  );
+
   public mentors$: Observable<Mentor[]> = (
-    collectionData(this.mentorsCollection, { idField: 'id' }) as Observable<Mentor[]>
+    collectionData(this.mentorsQuery, { idField: 'id' }) as Observable<Mentor[]>
   ).pipe(shareReplay(1));
 
   public kits$: Observable<Kit[]> = (
@@ -58,7 +64,7 @@ export class EnrollDataService {
   ]).pipe(
     map(([mentors, kits, monthlyMentors, selectedMentorId]) => {
       const currentMonth: number = new Date().getMonth() + 1;
-      const current: MonthlyMentor | null = monthlyMentors.find((m) => m.month === currentMonth) ?? null;
+      const current: MonthlyMentor | null = monthlyMentors.find((m: MonthlyMentor) => m.month === currentMonth) ?? null;
 
       const defaultMentor: Mentor | null = mentors.find((m) => m.id === current?.mentorId) ?? null;
       const selectedMentor: Mentor | null =

@@ -86,7 +86,7 @@ export class Enroll implements AfterViewInit, OnDestroy {
   private enroll = viewChild.required<ElementRef<HTMLElement>>('enroll');
   private benefitsElement = viewChildren<ElementRef<HTMLElement>>('benefit');
   private stepTitleElement = viewChildren<ElementRef<HTMLElement>>('stepTitle');
-  private mentorPhoto = viewChild<ElementRef<HTMLImageElement>>('mentorPhoto');
+  private mentorPhoto = viewChild<ElementRef<HTMLDivElement>>('mentorPhoto');
   private intersectionObserver: IntersectionObserver | null = null;
 
   private platformId = inject(PLATFORM_ID);

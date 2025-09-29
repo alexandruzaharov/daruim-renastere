@@ -1,12 +1,37 @@
-.header {
-  background-color: var(--pastel-lavender);
-  text-align: center;
-  padding: 4rem 2rem;
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 35vh;
+  background: url('/images/abstract-crystal-texture.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pure-white);
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(82, 48, 91, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  &__content {
+    max-width: 800px;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+  }
 
   &__subtitle {
-    font-family: var(--navigation-font);
-    color: var(--deep-plum);
-    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -106,15 +131,20 @@
 
 /* For laptop */
 @media (min-width: 768px) {
-  .header {
-    padding: 6rem 2rem;
+  .hero {
+    min-height: 25vh;
 
     &__title {
       font-size: 3rem;
+      margin-bottom: 3rem;
     }
 
     &__subtitle {
       font-size: 1.8rem;
+    }
+
+    &__highlight {
+      font-size: 1.6rem;
     }
   }
 

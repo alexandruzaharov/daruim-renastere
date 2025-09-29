@@ -1,8 +1,10 @@
 export interface Mentor {
   id: string;
   name: string;
+  nameNormalized: string;
   photo: string;
   kitLinks: KitLink[];
+  linkWithoutProducts: string;
 }
 
 export interface KitLink {

@@ -1,11 +1,15 @@
+<section class="hero">
+  <div class="hero__overlay">
+    <div class="hero__content">
+      <h1 class="hero__title">Înscrie-te în comunitatea dōTERRA</h1>
+      <p class="hero__subtitle">
+        Începe călătoria ta spre un stil de viață sănătos, alături de un îndrumător dedicat care te va sprijini la fiecare pas.
+      </p>
+    </div>
+  </div>
+</section>
+
 <section #enroll class="enroll">
-  <header class="header">
-    <h1 class="header__title">Înscrie-te în comunitatea dōTERRA</h1>
-    <p class="header__subtitle">
-      Începe călătoria ta spre un stil de viață sănătos, alături de un îndrumător dedicat care te va sprijini la fiecare pas.
-    </p>
-  </header>
-  
   <div class="container">
     <section class="intro">
       <h2 class="intro__title">Profită de beneficiile înscrierii</h2>
@@ -34,10 +38,10 @@
       <section class="mentor">
         <h3 class="step-title" #stepTitle><span class="step-number">1</span>Alege-ți îndrumătorul</h3>
         <div class="mentor__grid">
-          <div class="mentor__left">
+          <div #mentorPhoto class="mentor__left">
             <img
               class="mentor__photo"
-              #mentorPhoto [src]="vm.selectedMentor?.photo"
+              [src]="vm.selectedMentor?.photo"
               [alt]="vm.selectedMentor?.name"
             />
             <h3 class="mentor__name">{{ vm.selectedMentor?.name }}</h3>
@@ -100,6 +104,22 @@
             </swiper-slide>
           }
         </swiper-container>
+      </div>
+
+      <div class="kits-section__no-kit__wrapper">
+        <div class="kits-section__no-kit">
+          <p class="kits-section__no-kit__text">
+            Dacă nu dorești să alegi un kit de înscriere, îți poți <strong>personaliza comanda cu produse individuale.</strong><br/>
+            În felul acesta, îți creezi propria combinație de produse.
+          </p>
+          <div class="kits-section__no-kit__btn">
+            <a
+              mat-flat-button
+              [href]="vm.selectedMentor?.linkWithoutProducts"
+              target="_blank"
+            >Înscrie-te cu produse alese</a>
+          </div>
+        </div>
       </div>
     </section>
   }

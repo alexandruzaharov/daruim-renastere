@@ -28,7 +28,7 @@ export const FAQ_LIST: Faq[] = [
     },
     {
       question: 'Pot să mă înscriu fără kit?',
-      answer: '<strong>Da, este posibil.</strong> Dacă nu dorești să alegi un kit de înscriere, îți poți <strong>personaliza comanda cu produse individuale</strong>. Tot ce trebuie să faci este să <em>ștergi kitul din coșul de cumpărături dōTERRA</em> și să adaugi produsele care te interesează. În felul acesta, îți creezi propria combinație de produse.'
+      answer: '<strong>Da, este posibil.</strong> Tot ce trebuie să faci este să apeși pe butonul <strong>„Înscrie-te cu produse alese”</strong>, iar apoi vei putea să-ți selectezi produsele preferate, fără să alegi un kit.'
     },
     {
       question: 'Pot primi mostre dacă am deja cont?',
