@@ -1,0 +1,58 @@
+<section class="hero">
+  <div class="hero__overlay">
+    <div class="hero__content">
+      <h1 class="hero__title">Împărtășim experiențe, construim echilibru</h1>
+      <p class="hero__subtitle">
+        Aici găsești înregistrările evenimentelor noastre, cu soluții simple și testimoniale inspiraționale despre folosirea uleiurilor esențiale.
+      </p>
+    </div>
+  </div>
+</section>
+
+@if (!(selectedPlaylistId$ | async)) {
+  <h2 class="select-event">Selectează Evenimentul:</h2>
+  <div class="playlist-grid">
+    @for (playlist of playlists$ | async; track playlist.id) {
+      <div
+        class="playlist-card"
+        (click)="selectPlaylist(playlist.id)"
+      >
+        <div class="playlist-card__image-container">
+          <img [src]="playlist.thumbnail" [alt]="playlist.title" />
+          <div class="playlist-card__video-count">{{ playlist.itemCount }} {{ playlist.itemCount === 1 ? 'video' : 'video-uri' }}</div>
+        </div>
+        <h4 class="playlist-card__title">{{ playlist.title }}</h4>
+      </div>
+    }
+  </div>
+  @if (isLoading$ | async) {
+    <app-loading [offsetHeight]="400"></app-loading>
+  }
+} @else {
+  <div class="videos__wrapper" #videosSection>
+    <button class="back-btn" (click)="closePlaylist()">
+      <ng-icon name="remixArrowLeftLongLine" size="2.8rem"></ng-icon>
+      <span class="back-btn__text">Înapoi</span>
+    </button>
+    @let selectedPlaylistId = selectedPlaylistId$ | async;
+    @if (selectedPlaylistId) {
+      @if (!hasVideos(selectedPlaylistId)) {
+        <app-loading [offsetHeight]="400"></app-loading>
+      }
+      <div class="videos__grid">
+        @let videos = videos$(selectedPlaylistId) | async;
+        @for (video of videos; track video.id) {
+          <div class="video-card">
+            <a class="glightbox" [href]="video.url" data-type="video">
+              <div class="video-card__container">
+                <mat-icon class="video-card__play-icon">play_circle</mat-icon>
+                <img [src]="video.thumbnail" [alt]="video.title" />
+              </div>
+              <h5 class="video-card__title">{{ video.title }}</h5>
+            </a>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

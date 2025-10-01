@@ -59,34 +59,28 @@
                 routerLinkActive="active"
               >Darul Animalelor</a>
             </li>
+            <li>
+              <a
+                (click)="closeMenu()"
+                class="dropdown__link"
+                [class.no-transition]="isResizing"
+                routerLink="/evenimente-inregistrate"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active"
+              >Evenimente Înregistrate</a>
+            </li>
           </ul>
         </li>
-        <li class="dropdown__item">
-          <div class="nav__link">
-            Descoperă<ng-icon class="dropdown__arrow" name="remixArrowDownSLine"></ng-icon>
-          </div>
-          <ul class="dropdown__menu" [class.no-transition]="isResizing">
-            <li>
-              <a
-                (click)="closeMenu()"
-                class="dropdown__link"
-                [class.no-transition]="isResizing"
-                routerLink="/cum-se-folosesc-uleiurile-esentiale"
-                [routerLinkActiveOptions]="{ exact: true }"
-                routerLinkActive="active"
-              >Cum se Folosesc Uleiurile Esențiale</a>
-            </li>
-            <li>
-              <a
-                (click)="closeMenu()"
-                class="dropdown__link"
-                [class.no-transition]="isResizing"
-                routerLink="/testimoniale"
-                [routerLinkActiveOptions]="{ exact: true }"
-                routerLinkActive="active"
-              >Testimoniale</a>
-            </li>
-          </ul>
+        <li>
+          <a
+            (click)="closeMenu()"
+            class="nav__link"
+            [class.no-transition]="isResizing"
+            routerLink="/testimoniale"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            >Testimoniale</a
+          >
         </li>
         <li>
           <a

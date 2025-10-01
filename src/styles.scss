@@ -138,4 +138,9 @@ p {
 /* Dialog */
 @include mat.dialog-overrides((
   container-color: var((--pure-white))
-))
+));
+
+//* Glightbox *//
+:root {
+  --plyr-color-main: var(--vibrant-rose);
+}

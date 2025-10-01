@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HowToUse } from './how-to-use';
+import { VideoRecordings } from './video-recordings';
 
-describe('HowToUse', () => {
-  let component: HowToUse;
-  let fixture: ComponentFixture<HowToUse>;
+describe('VideoRecordings', () => {
+  let component: VideoRecordings;
+  let fixture: ComponentFixture<VideoRecordings>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HowToUse]
+      imports: [VideoRecordings]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HowToUse);
+    fixture = TestBed.createComponent(VideoRecordings);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

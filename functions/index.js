@@ -8,7 +8,9 @@ const cors = require('cors')({
     'http://localhost:5000'
   ]
 });
+const axios = require("axios");
 const admin = require('firebase-admin');
+const { title } = require("process");
 
 admin.initializeApp();
 const bucket = admin.storage().bucket();
@@ -162,53 +164,52 @@ exports.setAdminRole = onCall(async (data, context) => {
   }
 });
 
-// Funcție care rulează automat când se face upload la o imagine
-// exports.generateResizedImages = onObjectFinalized(async (event) => {
-//   const filePath = event.data.name;
-//   const contentType = event.data.contentType;
-//   const fileName = path.basename(filePath);
+// Endpoint pentru a aduce playlisturile din YouTube
+exports.youtubePlaylists = onRequest({ secrets: ['YOUTUBE_DATA_API_KEY'] }, async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
 
-//   if (!contentType.startsWith('image/')) {
-//     console.log('Nu este imagine, iesim.');
-//     return;
-//   }
+  try {
+    const response = await axios.get("https://www.googleapis.com/youtube/v3/playlists", {
+      params: {
+        part: "snippet,contentDetails",
+        channelId: 'UC3VlTB0WovH62BeoqwW3nSw',
+        maxResults: 50,
+        pageToken: req.query.pageToken || "",
+        key: process.env.YOUTUBE_DATA_API_KEY
+      }
+    });
 
-//   if (fileName.includes('_small') || fileName.includes('_large')) {
-//     console.log('Imagine deja procesata.');
-//     return;
-//   }
+    res.status(200).json(response.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message || 'Error fetching playlists' });
+  }
+});
 
-//   // Descarcă fișierul temporar
-//   const tempFilePath = path.join(os.tmpdir(), fileName);
-//   await bucket.file(filePath).download({ destination: tempFilePath });
-//   console.log('Imagine descărcată:', tempFilePath);
+// Endpoint pentru a aduce videourile din YouTube
+exports.youtubeVideosFromPlaylist = onRequest({ secrets: ['YOUTUBE_DATA_API_KEY'] }, async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
 
-//   // Definim numele fișierelor redimensionate
-//   const smallFileName = fileName.replace(/\.(\w+)$/, '_small.$1');
-//   const largeFileName = fileName.replace(/\.(\w+)$/, "_large.$1");
+  try {
+    const playlistId = req.query.playlistId;
 
-//   const smallFilePath = path.join(os.tmpdir(), smallFileName);
-//   const largeFilePath = path.join(os.tmpdir(), largeFileName);
+    if (!playlistId) {
+      return res.status(400).json({ error: 'Missing playlistId' });
+    }
 
-//   // Redimensionare cu sharp
-//   await sharp(tempFilePath).resize(400).toFile(smallFilePath);
-//   await sharp(tempFilePath).resize(1200).toFile(largeFilePath);
+    const response = await axios.get("https://www.googleapis.com/youtube/v3/playlistItems", {
+      params: {
+        part: "snippet,contentDetails",
+        playlistId: playlistId,
+        maxResults: 50,
+        pageToken: req.query.pageToken || "",
+        key: process.env.YOUTUBE_DATA_API_KEY
+      }
+    });
 
-//   // Upload în Storage
-//   const [smallUpload] = await bucket.upload(smallFilePath, {
-//     destination: `events/${smallFileName}`,
-//     metadata: { contentType }
-//   });
-
-//   const [largeUpload] = await bucket.upload(largeFilePath, {
-//     destination: `events/${largeFileName}`,
-//     metadata: { contentType }
-//   });
-
-//   // Ștergem fișierele temporare
-//   fs.unlinkSync(tempFilePath);
-//   fs.unlinkSync(smallFilePath);
-//   fs.unlinkSync(largeFilePath);
-
-//   console.log('Versiuni generate:', smallUpload.name, largeUpload.name);
-// });
+    res.status(200).json(response.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message || 'Error fetching videos' });
+  }
+});

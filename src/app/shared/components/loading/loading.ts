@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './loading.scss'
 })
 export class Loading {
-
+  public offsetHeight = input.required<number>();
 }
