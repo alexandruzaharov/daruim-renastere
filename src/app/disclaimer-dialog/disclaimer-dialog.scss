@@ -1,0 +1,55 @@
+.disclaimer-dialog {
+  &__title {
+    font-size: 2rem;
+    line-height: 1.4;
+    font-family: var(--button-title-font);
+    font-weight: var(--font-semi-bold);
+    color: var(--deep-plum);
+    text-align: center;
+  }
+
+  &__content {
+    max-height: 60vh;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    &__text {
+      margin-bottom: 2rem;
+      font-size: 1.4rem;
+    }
+
+    &__img {
+      
+      &__wrapper {
+        display: none;
+      }
+    }
+  }
+
+  &__actions {
+    margin-bottom: 2rem;
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .disclaimer-dialog {
+    &__content {
+      &__text {
+        &__wrapper {
+          border-right: 1px solid var(--pastel-lavender);
+        }
+      }
+
+      &__img {
+        height: 10rem;
+
+        &__wrapper {
+          display: block;
+        }
+      }
+    }
+  }
+}
