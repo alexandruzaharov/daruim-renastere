@@ -28,6 +28,10 @@ export const routes: Routes = [
                 path: 'testimonials-settings',
                 loadComponent: () => import('./admin/testimonials-settings/testimonials-settings').then(c => c.TestimonialsSettings)
             },
+            {
+                path: 'users-settings',
+                loadComponent: () => import('./admin/users-settings/users-settings').then(c => c.UsersSettings)
+            },
         ]
     },
     { path: '', loadComponent: () => import('./home/home').then(c => c.Home) },

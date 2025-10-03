@@ -1,0 +1,36 @@
+<mat-card class="admin-card">
+  <mat-card-title><h2 class="admin-card__title">Setează Admin</h2></mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="setAdmin()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label for="email">Email utilizator</mat-label>
+        <input matInput formControlName="email" id="email" placeholder="Introdu email-ul" />
+        @if (form.get('email')?.hasError('required')) {
+          <mat-error>
+            Email-ul este obligatoriu
+          </mat-error>
+        }
+        @if (form.get('email')?.hasError('email')) {
+          <mat-error>
+            Email invalid
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <div class="actions">
+        <button
+          mat-flat-button
+          type="submit"
+          [disabled]="loading || form.invalid"
+          >
+          <div class="actions__btn-label">
+            @if (loading) {
+              <mat-spinner [diameter]="18"></mat-spinner>
+              <span>Se seteaza..</span>
+            } @else { Setează ca admin }
+          </div>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

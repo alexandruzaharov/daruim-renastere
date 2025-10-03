@@ -50,6 +50,14 @@ export class AuthService {
     }
   }
 
+  public async setAdminByEmail(email: string): Promise<any> {
+    return runInInjectionContext(this.injector, async () => {
+      const callable = httpsCallable<{ email: string }, { message: string }>(this.functions, 'setAdminByEmail');
+      const result = await callable({ email });
+      return result.data;
+    });
+  }
+
   public async setAdminRole(email: string): Promise<any> {
     const setAdminRole = httpsCallable(this.functions, 'setAdminRole');
     const result = await setAdminRole( {email} );

@@ -11,9 +11,6 @@
   &__content {
     max-height: 60vh;
     overflow: auto;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
 
     &__text {
       margin-bottom: 2rem;
@@ -37,6 +34,10 @@
 @media (min-width: 768px) {
   .disclaimer-dialog {
     &__content {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      
       &__text {
         &__wrapper {
           border-right: 1px solid var(--pastel-lavender);

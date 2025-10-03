@@ -1,5 +1,4 @@
 const { onRequest, onCall, HttpsError } = require("firebase-functions/https");
-const { onObjectFinalized } = require("firebase-functions/storage");
 const nodemailer = require('nodemailer');
 const cors = require('cors')({
   origin: [
@@ -10,10 +9,8 @@ const cors = require('cors')({
 });
 const axios = require("axios");
 const admin = require('firebase-admin');
-const { title } = require("process");
 
 admin.initializeApp();
-const bucket = admin.storage().bucket();
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.eu',
@@ -139,6 +136,17 @@ exports.sendSamplesEmail = onRequest({ secrets: ['EMAIL_PASSWORD', 'TURNSTILE_SE
 //     res.status(500).send(`Eroare: ${error.message}`);
 //   }
 // });
+
+exports.setAdminByEmail = onCall(async (request) => {
+  const email = request.data?.email;
+  try {
+    const user = await admin.auth().getUserByEmail(email);
+    await admin.auth().setCustomUserClaims(user.uid, { admin: true });
+    return { message: `Utilizatorul ${email} a fost setat ca admin.` };
+  } catch (error) {
+    throw new HttpsError('internal', error.message);
+  }
+});
 
 exports.setAdminRole = onCall(async (data, context) => {
   // Verifică dacă cel care face cererea este autentificat și are rol de admin

@@ -1,0 +1,39 @@
+@use "@angular/material" as mat;
+
+.admin-card {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: linear-gradient(135deg, #fbf9fc, var(--pure-white));
+  box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--pale-lilac-darker);
+
+  &__title {
+    font-size: 2rem;
+    color: var(--deep-plum);
+    text-align: center;
+    margin: 1rem 0 3rem;
+  }
+
+  @include mat.form-field-overrides((
+    outlined-outline-color: var(--muted-plum),
+    outlined-hover-outline-color: var(--deep-plum),
+  ));
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+
+  &__btn-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}

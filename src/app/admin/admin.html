@@ -48,6 +48,13 @@
               routerLinkActive="admin__menu-item--active"
               (click)="toggleSidenav(isMobile)"
               >Testimoniale</a>
+            <a
+              mat-list-item
+              routerLink="users-settings"
+              class="admin__menu-item"
+              routerLinkActive="admin__menu-item--active"
+              (click)="toggleSidenav(isMobile)"
+              >Useri</a>
             <div class="admin__logout">
               <button mat-flat-button (click)="authService.logout()">Deconectare</button>
             </div>
