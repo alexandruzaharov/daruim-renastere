@@ -9,3 +9,20 @@
     supporting-text-line-height: 2,
   ));
 }
+
+.dialog__actions {
+  &__delete-btn {
+    border: 1px solid #e53935;
+    @include mat.button-overrides((
+      filled-container-color: transparent,
+      filled-label-text-color: #e53935,
+    ));
+
+    &:hover {
+      @include mat.button-overrides((
+        filled-container-color: #e53935,
+        filled-label-text-color: var(--pure-white),
+      ));
+    }
+  }
+}

@@ -1,0 +1,206 @@
+@use "@angular/material" as mat;
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 40vh;
+  background: url("/images/abstract-crystal-texture.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pure-white);
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(82, 48, 91, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  &__content {
+    max-width: 800px;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+  }
+
+  &__subtitle {
+    margin-bottom: 1rem;
+  }
+}
+
+.testimonials {
+  &__wrapper {
+    max-width: 1200px;
+    margin: 4rem auto;
+  }
+
+  &__title {
+    color: var(--deep-plum);
+    padding-inline: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  &__card {
+    background: linear-gradient(135deg, #fbf9fc, var(--pure-white));
+    margin: 0 1rem 2rem;
+    border: 1px solid var(--pale-lilac-darker);
+    border-left: 5px solid var(--muted-plum);
+    
+    &__avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .mat-mdc-card-avatar {
+      width: 60px;
+      height: 60px;
+    }
+
+    @include mat.card-overrides(
+      (
+        title-text-size: 1.6rem,
+        title-text-weight: var(--font-semi-bold),
+        subtitle-text-size: 1.4rem,
+        subtitle-text-color: var(--steel-gray),
+        elevated-container-color: var(--pure-white),
+      )
+    );
+
+    &__content {
+      font-size: 1.4rem;
+      white-space: pre-wrap;
+    }
+  }
+
+  &__paginator {
+    @include mat.paginator-overrides(
+      (
+        container-background-color: var(--pure-white),
+        enabled-icon-color: var(--vibrant-rose),
+      )
+    );
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: linear-gradient(135deg, #fbf9fc, var(--pure-white));
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.15);
+    border-top: 4px solid var(--muted-plum);
+    border-radius: 0.8rem;
+    margin-bottom: 6rem;
+
+    &__section {
+      background-color: var(--pastel-lavender);
+    }
+
+    &__wrapper {
+      padding-inline: 1rem;
+    }
+
+    &__title {
+      color: var(--deep-plum);
+      margin: 3rem 0 2rem;
+      padding-inline: 2rem;
+      text-align: center;
+    }
+
+    @include mat.form-field-overrides((
+      outlined-outline-color: var(--muted-plum),
+      outlined-hover-outline-color: var(--deep-plum),
+    ));
+  }
+
+  &__form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  &__submit__label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.upload-zone {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  position: relative;
+
+  &.active {
+    background-color: #f0f8ff;
+    border-color: #3f51b5;
+  }
+
+  &__text {
+    margin-bottom: 1rem;
+  }
+}
+
+.image-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .hero {
+    min-height: 25vh;
+
+    &__title {
+      font-size: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    &__subtitle {
+      font-size: 1.8rem;
+    }
+
+    &__highlight {
+      font-size: 1.6rem;
+    }
+  }
+
+  .testimonials {
+    &__card {
+      margin-inline: 2rem;
+    }
+  }
+}

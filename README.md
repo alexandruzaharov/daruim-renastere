@@ -2,6 +2,33 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
 
+## Configuration
+
+The project needs to have two environment files: `environment.ts` and `environment.development.ts`.
+Should have the following format:
+
+```
+export const environment = {
+    firebase: {
+        apiKey: 'your-api-key',
+        authDomain: 'your-auth-domain',
+        projectId: 'your-project-id',
+        storageBucket: 'your-name.firebasestorage.app',
+        messagingSenderId: '1234567891234',
+        appId: '1:1234567891234:web:fad7ef9ff924b1e692f3b7'
+    },
+    functionsUrl: 'https://us-central1-name.cloudfunctions.net',
+    turnstileSiteKey: '0x4AAAAAATEST'
+};
+```
+## Start up emulators
+
+To start the firebase emulators run:
+
+```bash
+firebase emulators:start
+```
+
 ## Development server
 
 To start a local development server, run:
@@ -33,6 +60,12 @@ To build the project run:
 ```bash
 ng build
 ```
+
+To build in development configuration and watch:
+```bash
+npm run watch
+```
+
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 

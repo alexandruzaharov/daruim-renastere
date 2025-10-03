@@ -1,1 +1,51 @@
-<h2>Testimoniale noi de revizuit</h2>
+<section class="testimonials-settings">
+  @if (vm$ | async; as testimonials) {
+    <div class="testimonials-settings__list">
+      <h2 class="testimonials-settings__title">Testimoniale noi de revizuit</h2>
+      @if (!testimonials.length) {
+        <div class="testimonials-settings__empty-state">
+          <mat-icon class="testimonials-settings__empty-state__icon">rate_review</mat-icon>
+          <div class="testimonials-settings__empty-state__text">
+            <p>Momentan nu sunt testimoniale noi de revizuit.</p>
+          </div>
+        </div>
+      }
+
+      @for (t of testimonials; track t.id) {
+        <mat-card class="testimonials-settings__card">
+          <mat-card-header>
+            <div mat-card-avatar>
+              <img
+                [src]="t.authorAvatar || '/images/default-avatar.webp'"
+                alt="Avatar"
+                class="testimonials-settings__card__avatar"/>
+            </div>
+            <mat-card-title>{{ t.authorName }}</mat-card-title>
+            <mat-card-subtitle>{{ t.createdAt.toDate()| dateRo }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="testimonials-settings__card__content">{{ t.testimonialText }}</p>
+          </mat-card-content>
+          <mat-card-actions class="testimonials-settings__card__actions">
+            <button 
+              mat-flat-button
+              class="testimonials-settings__card__btn-approve"
+              (click)="approve(t.id)">
+              <mat-icon class="testimonials-settings__card__btn-approve--icon">check</mat-icon>
+              <span>Aprobă</span>
+            </button>
+            <button
+              mat-flat-button
+              class="testimonials-settings__card__btn-delete"
+              (click)="delete(t.id)">
+              <mat-icon class="testimonials-settings__card__btn-delete--icon">delete</mat-icon>
+              <span>Șterge</span>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <app-loading [offsetHeight]="350"></app-loading>
+  }
+</section>

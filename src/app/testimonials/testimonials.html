@@ -1,1 +1,116 @@
-<p>testimonials works!</p>
+<section class="hero">
+  <div class="hero__overlay">
+    <div class="hero__content">
+      <h1 class="hero__title">Experiențe care inspiră</h1>
+      <p class="hero__subtitle">
+        Aici poți citi poveștile reale ale celor care folosesc uleiurile esențiale și poți împărtăși propria experiență.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="testimonials__wrapper">
+  @if (vm$ | async; as testimonials) {
+    <div class="testimonials__list">
+      <h2 class="testimonials__title">Testimoniale</h2>
+      @for (t of testimonials; track t.id) {
+        <mat-card class="testimonials__card">
+          <mat-card-header>
+            <div mat-card-avatar>
+              <img
+                [src]="t.authorAvatar || '/images/default-avatar.webp'"
+                alt="Avatar"
+                class="testimonials__card__avatar"/>
+            </div>
+            <mat-card-title>{{ t.authorName }}</mat-card-title>
+            <mat-card-subtitle>{{ t.createdAt.toDate() | dateRo }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="testimonials__card__content">{{ t.testimonialText }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <app-loading [offsetHeight]="350"></app-loading>
+  }
+  <mat-paginator
+    [length]="(total$ | async) || 0"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Selectează pagina"
+    class="testimonials__paginator"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+
+<section class="testimonials__form__section">
+  <h2 class="testimonials__form__title">Lasă un testimonial</h2>
+  <div class="testimonials__form__wrapper">
+    <div class="testimonials__form">
+      <form [formGroup]="testimonialForm" (ngSubmit)="submitTestimonial()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nume</mat-label>
+          <input matInput formControlName="authorName">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Testimonial</mat-label>
+          <textarea matInput rows="8" formControlName="testimonialText"></textarea>
+        </mat-form-field>
+    
+        <!-- Upload avatar -->
+         @if (imagePreview) {
+           <div class="image-preview">
+             <img [src]="imagePreview" alt="Preview imagine" />
+             <button
+               mat-icon-button
+               color="warn"
+               type="button"
+               (click)="removeImage()"
+               aria-label="Șterge imaginea">
+               <mat-icon>delete</mat-icon>
+             </button>
+           </div>
+         } @else {
+            <div
+              class="upload-zone mat-elevation-z2"
+              (drop)="onFileDropped($event)"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              [class.active]="isDragOver">
+              <p class="upload-zone__text">Încarcă un avatar (opțional)</p>
+              <button
+                mat-stroked-button
+                color="primary"
+                type="button"
+                (click)="fileInput.click()"
+                >Selectează fișier</button>
+              <input
+                #fileInput
+                type="file"
+                accept="image/*"
+                hidden (change)="onFileSelected($event)" />
+            </div>
+         }
+    
+        <div class="testimonials__form-actions">
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            [disabled]="testimonialForm.invalid || isResizing || isSubmitting || isResizing"
+            >
+            <div class="testimonials__submit__label">
+              @if (isSubmitting) {
+                <mat-spinner [diameter]="18"></mat-spinner>
+                <span>Se trimite..</span>
+              } @else { Trimite testimonial }
+            </div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

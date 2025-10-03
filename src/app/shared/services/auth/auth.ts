@@ -1,5 +1,5 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { EnvironmentInjector, inject, Injectable, PLATFORM_ID, runInInjectionContext } from '@angular/core';
 import { Auth, authState, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { Functions, httpsCallable } from '@angular/fire/functions';
 import { BehaviorSubject, map, Observable, of, take } from 'rxjs';
@@ -11,6 +11,7 @@ export class AuthService {
   private auth = inject(Auth);
   private functions = inject(Functions);
   private platformId = inject(PLATFORM_ID);
+  private injector = inject(EnvironmentInjector);
 
   private isAdminSubject = new BehaviorSubject<boolean>(false);
   private isLoadingSubject = new BehaviorSubject<boolean>(true);
@@ -72,19 +73,25 @@ export class AuthService {
   }
 
   public async login(email: string, password: string) {
-    try {
-      this.isLoadingSubject.next(true);
-      await signInWithEmailAndPassword(this.auth, email, password);
-    } catch (error) {
-      this.isLoadingSubject.next(false);
-      console.error('Login error:', error);
-      throw error;
-    }
+    return runInInjectionContext(this.injector, async () => {
+      try {
+        this.isLoadingSubject.next(true);
+        await signInWithEmailAndPassword(this.auth, email, password);
+      } catch (error) {
+        this.isLoadingSubject.next(false);
+        console.error('Login error:', error);
+        throw error;
+      } finally {
+        this.isLoadingSubject.next(false);
+      }
+    });
   }
 
   public async logout(): Promise<void> {
-    this.isAdminSubject.next(false);
-    await signOut(this.auth);
+    return runInInjectionContext(this.injector, async () => {
+      this.isAdminSubject.next(false);
+      await signOut(this.auth);
+    });
   }
 
   public async refreshAdminStatus(): Promise<void> {

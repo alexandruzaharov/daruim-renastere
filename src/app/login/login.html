@@ -2,32 +2,45 @@
 @if (!(isLoading)) {
   @if (!(isAuthenticated$ | async)) {
     <div class="login__wrapper">
-      <div class="login-container">
-        <h2>Autentificare</h2>
-        <form (ngSubmit)="onLogin()">
-          <div class="form-group">
-            <label for="email">Email:</label>
+      <div class="login__container">
+        <h2 class="login__title">Autentificare</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label for="email">Email:</mat-label>
             <input
-              type="email"
+              matInput
               id="email"
-              [(ngModel)]="email"
-              name="email"
+              type="email"
               placeholder="Introdu email-ul"
-              required
-            >
-          </div>
-          <div class="form-group">
-            <label for="password">Parolă:</label>
+              formControlName="email"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label for="password">Parolă</mat-label>
             <input
-              type="password"
-              id="password"
-              [(ngModel)]="password"
-              name="password"
+              matInput
+              [type]="showPassword ? 'text' : 'password'"
               placeholder="Introdu parola"
-              required
+              formControlName="password"
+            />
+            <button mat-icon-button matSuffix (click)="togglePassword()" type="button">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <button
+            mat-flat-button
+            type="submit"
+            [disabled]="!loginForm.valid || isSubmitting"
+            class="login__submit"
             >
-          </div>
-          <button mat-flat-button type="submit">Autentificare</button>
+              <div class="login__submit__label">
+                @if (isSubmitting) {
+                  <mat-spinner [diameter]="18"></mat-spinner>
+                  <span>Se autentifică...</span>
+                } @else { Autentificare }
+              </div>
+            </button>
           <p [hidden]="!errorMessage" class="error-message">{{ errorMessage }}</p>
         </form>
       </div>
