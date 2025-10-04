@@ -1,0 +1,14 @@
+# Permitem indexarea site-ului
+User-agent: *
+Allow: /
+
+# Blocăm zona de administrare
+Disallow: /admin
+Disallow: /admin/
+Disallow: /admin/*
+
+# Blocăm orice URL cu parametri (de tip ?id=, ?p= etc.)
+Disallow: /*?
+
+# Sitemap pentru indexare corectă
+Sitemap: https://daruimrenastere.ro/sitemap.xml
