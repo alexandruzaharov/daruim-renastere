@@ -7,16 +7,23 @@
     overflow: hidden;
     color: var(--pure-white);
 
+    &__about {
+        &__text {
+            margin-bottom: 1rem;
+        }
+        
+        &__contact-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+    }
+
     &__content {
         display: flex;
         flex-direction: column;
     }
 
-    &__contact-info {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
 
     &__bottom {
         background-color: var(--dark-plum);

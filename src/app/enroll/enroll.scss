@@ -345,6 +345,8 @@ swiper-container {
     @include mat.expansion-overrides((
       container-background-color: var(--pale-lilac),
       header-hover-state-layer-color: var(--pale-lilac-darker),
+      header-text-color: var(--deep-plum),
+      header-text-weight: var(--font-semi-bold),
     ));
   }
 }

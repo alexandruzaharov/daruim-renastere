@@ -1,0 +1,61 @@
+@use "@angular/material" as mat;
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 35vh;
+  background: url('/images/abstract-crystal-texture.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pure-white);
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(82, 48, 91, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  &__content {
+    max-width: 800px;
+  }
+}
+
+.privacy-policy {
+  padding: 4rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &__accordion {
+    @include mat.expansion-overrides((
+      container-background-color: var(--pale-lilac),
+      header-hover-state-layer-color: var(--pale-lilac-darker),
+      header-text-color: var(--deep-plum),
+      header-text-weight: var(--font-semi-bold),
+    ));
+  }
+
+  ul {
+    list-style: inside;
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .hero {
+    min-height: 25vh;
+
+    &__title {
+      font-size: 3rem;
+      margin-bottom: 3rem;
+    }
+  }
+}

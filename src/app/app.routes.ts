@@ -10,6 +10,8 @@ export const routes: Routes = [
     { path: 'contact', loadComponent: () => import('./contact/contact').then(c => c.Contact) },
     { path: 'inscrie-te', loadComponent: () => import('./enroll/enroll').then(c => c.Enroll) },
     { path: 'login', loadComponent: () => import('./login/login').then(c => c.Login) },
+    { path: 'politica-de-confidentialitate', loadComponent: () => import('./privacy-policy/privacy-policy').then(c => c.PrivacyPolicy) },
+    { path: 'disclaimer', loadComponent: () => import('./disclaimer/disclaimer').then(c => c.Disclaimer) },
     {
         path: 'admin',
         loadComponent: () => import('./admin/admin').then(c => c.Admin),

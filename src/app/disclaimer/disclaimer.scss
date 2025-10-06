@@ -1,0 +1,86 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 35vh;
+  background: url('/images/abstract-crystal-texture.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pure-white);
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(82, 48, 91, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  &__content {
+    max-width: 800px;
+  }
+}
+
+.disclaimer {
+  padding: 4rem 2rem 4rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  
+  &__content {
+    border: 1px solid var(--pale-rose);
+    border-left: 5px solid var(--muted-plum);
+    padding: 3rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 0.8rem;
+
+    &__text {
+      margin-bottom: 2rem;
+    }
+
+    &__img__wrapper {
+      display: none;
+    }
+  }
+}
+
+/* For laptop */
+@media (min-width: 768px) {
+  .hero {
+    min-height: 25vh;
+
+    &__title {
+      font-size: 3rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .disclaimer {
+    padding: 6rem 2rem 6rem;
+
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      &__text__wrapper {
+        padding-right: 2rem;
+        border-right: 1px solid var(--pastel-lavender);
+      }
+      
+      &__img {
+        height: 10rem;
+  
+        &__wrapper {
+          display: block;
+        }
+      }
+    }
+
+  }
+}

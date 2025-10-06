@@ -144,3 +144,34 @@ p {
 :root {
   --plyr-color-main: var(--vibrant-rose);
 }
+
+//* Cookiebot */
+.CookieDeclaration {
+  & a {
+    color: var(--vibrant-rose);
+    font-weight: var(--font-semi-bold);
+    
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+  }
+
+  .CookieDeclarationType {
+    border: none;
+  
+    &Header {
+      color: var(--deep-plum);
+    }
+  
+    .CookieDeclarationTable {
+      &Header {
+        color: var(--deep-plum);
+        border-color: var(--steel-gray);
+      }
+      &Cell {
+        border-color: var(--steel-gray);
+      }
+    }
+  }
+}

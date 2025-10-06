@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisclaimerDialog } from './disclaimer-dialog';
+import { Disclaimer } from './disclaimer';
 
-describe('DisclaimerDialog', () => {
-  let component: DisclaimerDialog;
-  let fixture: ComponentFixture<DisclaimerDialog>;
+describe('Disclaimer', () => {
+  let component: Disclaimer;
+  let fixture: ComponentFixture<Disclaimer>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DisclaimerDialog]
+      imports: [Disclaimer]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DisclaimerDialog);
+    fixture = TestBed.createComponent(Disclaimer);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
