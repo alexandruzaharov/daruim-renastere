@@ -1,5 +1,5 @@
 import { AsyncPipe, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, PLATFORM_ID, viewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, OnInit, PLATFORM_ID, viewChild } from '@angular/core';
 import { VideoRecordingsDataService } from '@shared/services/video-recordings-data/video-recordings-data';
 import { Loading } from '@shared/components/loading/loading';
 import { BehaviorSubject, Subscription, take, tap } from 'rxjs';
@@ -7,6 +7,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { remixArrowLeftLongLine } from '@ng-icons/remixicon';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-video-recordings',
@@ -25,11 +26,12 @@ import { ScrollDispatcher } from '@angular/cdk/scrolling';
   styleUrl: './video-recordings.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VideoRecordings implements AfterViewInit, OnDestroy {
+export class VideoRecordings implements OnInit, AfterViewInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private videoService = inject(VideoRecordingsDataService);
   private platformId = inject(PLATFORM_ID);
   private scrollDispatcher = inject(ScrollDispatcher);
+  private seo = inject(SeoService);
 
   public videosSectionElement = viewChild<ElementRef<HTMLElement>>('videosSection');
   
@@ -55,6 +57,15 @@ export class VideoRecordings implements AfterViewInit, OnDestroy {
         });
       });
     }
+  }
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Împărtășim experiențe, construim echilibru',
+      description:
+        'Aici găsești înregistrările evenimentelor noastre, cu soluții simple și testimoniale inspiraționale despre folosirea uleiurilor esențiale.',
+      url: 'https://daruimrenastere.ro/evenimente-inregistrate',
+    });
   }
 
   public ngAfterViewInit(): void {

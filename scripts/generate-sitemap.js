@@ -13,7 +13,9 @@ const routes = [
   '/evenimente-inregistrate',
   '/testimoniale',
   '/contact',
-  '/inscrie-te'
+  '/inscrie-te',
+  '/disclaimer',
+  '/politica-de-confidentialitate'
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

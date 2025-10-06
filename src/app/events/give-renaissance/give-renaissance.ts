@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, inject, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { remixArrowDownDoubleLine, remixArrowLeftLongLine, remixPresentationFill, remixVideoOnFill } from '@ng-icons/remixicon';
 import { EventComponent } from '../shared/event/event';
@@ -12,6 +12,7 @@ import { FilterEventsPipe } from '../shared/filter-by-pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-give-renaissance',
@@ -62,9 +63,10 @@ import { RouterLink } from '@angular/router';
     ])
   ]
 })
-export class GiveRenaissance {
+export class GiveRenaissance implements OnInit {
   private eventsDataService = inject(EventsDataService);
   private cdr = inject(ChangeDetectorRef);
+  private seo = inject(SeoService);
 
   public vm$: Observable<EventVMData[]> = this.eventsDataService.vmEventsGiveRenaissance$;
   public eventsElement = viewChild<ElementRef<HTMLElement>>('eventsSection');
@@ -74,6 +76,15 @@ export class GiveRenaissance {
   public selectedEventData: EventVMData | null = null;
   public hideCard = false;
   public pendingEvent: EventVMData | null = null;
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Evenimente „Dăruim Renaștere”',
+      description:
+        'Descoperă întâlniri dedicate sănătății, echilibrului și reconectării cu natura.',
+      url: 'https://daruimrenastere.ro/daruim-renastere',
+    });
+  }
 
   public scrollToEvents(behavior: ScrollBehavior) {
     const eventsElementRef = this.eventsElement()?.nativeElement;

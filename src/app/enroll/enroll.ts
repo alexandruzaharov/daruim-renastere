@@ -7,6 +7,7 @@ import {
   ElementRef,
   inject,
   OnDestroy,
+  OnInit,
   PLATFORM_ID,
   Renderer2,
   viewChild,
@@ -45,6 +46,7 @@ import { EnrollVMData } from '@shared/services/enroll-data/enroll-data.model';
 import { BENEFITS, Benefits, Faq, FAQ_LIST } from './content.data';
 import { NotificationSnackbar } from '@shared/components/notification-snackbar/notification-snackbar';
 import { NotificationData } from '@shared/components/notification-snackbar/notification-snackbar.data';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-enroll',
@@ -75,7 +77,7 @@ import { NotificationData } from '@shared/components/notification-snackbar/notif
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Enroll implements AfterViewInit, OnDestroy {
+export class Enroll implements OnInit, AfterViewInit, OnDestroy {
   public swiper = viewChild<ElementRef<SwiperContainer>>('swiper');
   public formDirective = viewChild.required<FormGroupDirective>(FormGroupDirective);
   public isSubmitting: boolean = false;
@@ -96,6 +98,7 @@ export class Enroll implements AfterViewInit, OnDestroy {
   private snackBar = inject(MatSnackBar);
   private dataService = inject(EnrollDataService);
   private renderer = inject(Renderer2);
+  private seo = inject(SeoService);
 
   public vm$: Observable<EnrollVMData> = this.dataService.vm$;
 
@@ -108,6 +111,15 @@ export class Enroll implements AfterViewInit, OnDestroy {
     confirmNoMentor: [false, Validators.requiredTrue],
     turnstile: ['', Validators.required],
   });
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Înscrie-te în comunitatea dōTERRA',
+      description:
+        'Începe călătoria ta spre un stil de viață sănătos, alături de un îndrumător dedicat care te va sprijini la fiecare pas.',
+      url: 'https://daruimrenastere.ro/inscrie-te',
+    });
+  }
 
   public ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {

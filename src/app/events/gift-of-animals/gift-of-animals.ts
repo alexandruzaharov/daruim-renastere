@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, inject, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, OnInit, viewChild } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { remixArrowDownDoubleLine, remixArrowLeftLongLine, remixPresentationFill, remixVideoOnFill } from '@ng-icons/remixicon';
 import { EventComponent } from '../shared/event/event';
@@ -12,6 +12,7 @@ import { FilterEventsPipe } from '../shared/filter-by-pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-gift-of-animals',
@@ -62,9 +63,10 @@ import { RouterLink } from '@angular/router';
     ])
   ]
 })
-export class GiftOfAnimals {
+export class GiftOfAnimals implements OnInit {
   private eventsDataService = inject(EventsDataService);
   private cdr = inject(ChangeDetectorRef);
+  private seo = inject(SeoService);
 
   public vm$: Observable<EventVMData[]> = this.eventsDataService.vmEventsGiftOfAnimals$;
   public eventsElement = viewChild<ElementRef<HTMLElement>>('eventsSection');
@@ -74,6 +76,15 @@ export class GiftOfAnimals {
   public selectedEventData: EventVMData | null = null;
   public hideCard = false;
   public pendingEvent: EventVMData | null = null;
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Evenimente „Darul Animalelor”',
+      description:
+        'Descoperă întâlniri dedicate sănătății și echilibrului prietenilor noștri necuvântători, cu ajutorul uleiurilor esențiale doTERRA.',
+      url: 'https://daruimrenastere.ro/darul-animalelor',
+    });
+  }
 
   public scrollToEvents(behavior: ScrollBehavior) {
     const eventsElementRef = this.eventsElement()?.nativeElement;

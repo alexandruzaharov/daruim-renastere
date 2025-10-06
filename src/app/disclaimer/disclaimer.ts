@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-disclaimer',
@@ -11,5 +12,15 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './disclaimer.html',
   styleUrl: './disclaimer.scss'
 })
-export class Disclaimer {
+export class Disclaimer implements OnInit {
+  private seo = inject(SeoService);
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Despre conținutul acestui site',
+      description:
+        'Avertisment privind informațiile oferite și limitele de responsabilitate.',
+      url: 'https://daruimrenastere.ro/disclaimer',
+    });
+  }
 }

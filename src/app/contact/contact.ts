@@ -1,4 +1,4 @@
-import { Component, inject, viewChild } from '@angular/core';
+import { Component, inject, OnInit, viewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroupDirective,
@@ -16,6 +16,7 @@ import { environment } from 'environments/environment';
 import { NgxTurnstileFormsModule, NgxTurnstileModule } from "ngx-turnstile";
 import { NotificationSnackbar } from '@shared/components/notification-snackbar/notification-snackbar';
 import { NotificationData } from '@shared/components/notification-snackbar/notification-snackbar.data';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-contact',
@@ -33,7 +34,7 @@ import { NotificationData } from '@shared/components/notification-snackbar/notif
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
 })
-export class Contact {
+export class Contact implements OnInit {
   public formDirective = viewChild.required<FormGroupDirective>(FormGroupDirective);
   public isSubmitting: boolean = false;
   public environment = environment;
@@ -42,6 +43,7 @@ export class Contact {
   private formBuilder = inject(FormBuilder);
   private http = inject(HttpClient);
   private snackBar = inject(MatSnackBar);
+  private seo = inject(SeoService);
 
   public contactForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -51,6 +53,15 @@ export class Contact {
     message: ['', Validators.required],
     turnstile: ['', Validators.required],
   });
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Contact',
+      description:
+        'Ia legătura cu echipa Dăruim Renaștere pentru detalii și sprijin personalizat.',
+      url: 'https://daruimrenastere.ro/contact',
+    });
+  }
 
   public submitContact() {
     this.isSubmitting = true;

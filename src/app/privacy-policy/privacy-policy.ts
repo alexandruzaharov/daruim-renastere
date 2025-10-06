@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { afterNextRender, Component, ElementRef, inject, PLATFORM_ID, viewChild } from '@angular/core';
+import { afterNextRender, Component, ElementRef, inject, OnInit, PLATFORM_ID, viewChild } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -10,9 +11,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
   templateUrl: './privacy-policy.html',
   styleUrl: './privacy-policy.scss'
 })
-export class PrivacyPolicy {
+export class PrivacyPolicy implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private cookieDeclaration = viewChild.required<ElementRef<HTMLDivElement>>('cookieDeclaration');
+  private seo = inject(SeoService);
 
   constructor() {
     if (isPlatformBrowser(this.platformId)) {
@@ -30,5 +32,14 @@ export class PrivacyPolicy {
         }
       });
     }
+  }
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Politica de confidențialitate',
+      description:
+        'Detalii despre colectarea și protecția datelor tale personale.',
+      url: 'https://daruimrenastere.ro/politica-de-confidentialitate',
+    });
   }
 }

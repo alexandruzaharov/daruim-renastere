@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit, viewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +18,7 @@ import { NotificationSnackbar } from '@shared/components/notification-snackbar/n
 import { NotificationData } from '@shared/components/notification-snackbar/notification-snackbar.data';
 import { Loading } from '@shared/components/loading/loading';
 import { DateRoPipe } from '@shared/pipes/date-ro/date-ro-pipe';
+import { SeoService } from '@shared/services/seo/seo-service';
 
 @Component({
   selector: 'app-testimonials',
@@ -42,12 +43,13 @@ import { DateRoPipe } from '@shared/pipes/date-ro/date-ro-pipe';
   styleUrl: './testimonials.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Testimonials {
+export class Testimonials implements OnInit {
   private testimonialsService = inject(TestimonialsService);
   private testimonialsData = inject(TestimonialsData);
   private snackBar = inject(MatSnackBar);
   private fb = inject(FormBuilder);
   private cdr = inject(ChangeDetectorRef);
+  private seo = inject(SeoService);
 
   public pageIndex$ = new BehaviorSubject(0);
   public pageSize$ = new BehaviorSubject(5);
@@ -77,6 +79,15 @@ export class Testimonials {
     this.testimonialForm = this.fb.group({
       authorName: ['', Validators.required],
       testimonialText: ['', Validators.required]
+    });
+  }
+
+  public ngOnInit(): void {
+    this.seo.updateMeta({
+      title: 'Testimoniale',
+      description:
+        'Citește experiențele reale ale celor care au folosit uleiurile esențiale doTERRA.',
+      url: 'https://daruimrenastere.ro/testimoniale',
     });
   }
 
