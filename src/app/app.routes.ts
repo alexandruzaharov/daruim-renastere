@@ -38,4 +38,5 @@ export const routes: Routes = [
     },
     { path: '', loadComponent: () => import('./home/home').then(c => c.Home) },
     { path: '**', redirectTo: '', pathMatch: 'full' }
+    // { path: '**', loadComponent: () => import('./not-found/not-found').then(c => c.NotFound), data: { status: 404 } }
 ];

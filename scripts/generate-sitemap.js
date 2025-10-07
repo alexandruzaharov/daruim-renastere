@@ -6,16 +6,16 @@ const sitemapPath = path.join(distFolder, 'sitemap.xml');
 
 const routes = [
   '/',
-  '/despre-noi',
-  '/contact',
-  '/daruim-renastere',
-  '/darul-animalelor',
-  '/evenimente-inregistrate',
-  '/testimoniale',
-  '/contact',
-  '/inscrie-te',
-  '/disclaimer',
-  '/politica-de-confidentialitate'
+  '/despre-noi/',
+  '/contact/',
+  '/daruim-renastere/',
+  '/darul-animalelor/',
+  '/evenimente-inregistrate/',
+  '/testimoniale/',
+  '/contact/',
+  '/inscrie-te/',
+  '/disclaimer/',
+  '/politica-de-confidentialitate/'
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

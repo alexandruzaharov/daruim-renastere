@@ -28,11 +28,11 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:description', content: description });
     this.meta.updateTag({
       property: 'og:image',
-      content: config.image || 'https://daruimrenastere.ro/images/daruimrenastere-logo-nav.webp',
+      content: config.image || 'https://daruimrenastere.ro/images/daruimrenastere-logo.png',
     });
     this.meta.updateTag({
       property: 'og:url',
-      content: config.url || 'https://daruimrenastere.ro',
+      content: config.url || 'https://daruimrenastere.ro/',
     });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
   }
