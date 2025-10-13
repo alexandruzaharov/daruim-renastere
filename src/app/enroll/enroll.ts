@@ -158,6 +158,7 @@ export class Enroll implements OnInit, AfterViewInit, OnDestroy {
         next: () => {
           this.formDirective().resetForm();
           this.isSubmitting = false;
+          this.cdr.detectChanges();
 
           this.snackBar.openFromComponent(NotificationSnackbar, {
             duration: 3000,
@@ -172,6 +173,7 @@ export class Enroll implements OnInit, AfterViewInit, OnDestroy {
           console.error('Eroare:', error);
           this.formDirective().resetForm();
           this.isSubmitting = false;
+          this.cdr.detectChanges();
 
           this.snackBar.openFromComponent(NotificationSnackbar, {
             duration: 5000,

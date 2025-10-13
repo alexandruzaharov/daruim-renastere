@@ -175,8 +175,13 @@ export class Testimonials implements OnInit {
         this.testimonialForm.reset();
         this.removeImage();
         this.isSubmitting = false;
+        this.cdr.detectChanges();
       } catch (err) {
         console.error('❌ Eroare la trimitere testimonial:', err);
+        this.testimonialForm.reset();
+        this.removeImage();
+        this.isSubmitting = false;
+        this.cdr.detectChanges();
         this.snackBar.openFromComponent(NotificationSnackbar, {
           duration: 5000,
           panelClass: ['notification-snackbar-wrapper'],
