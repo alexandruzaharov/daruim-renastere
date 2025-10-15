@@ -89,7 +89,7 @@ exports.sendSamplesEmail = onRequest({ secrets: ['EMAIL_PASSWORD', 'TURNSTILE_SE
       return res.status(405).json({ error: 'Metoda nu este permisă' });
     }
 
-    const { name, email, phone, city, turnstile } = req.body;
+    const { name, email, phone, city, referredBy, turnstile } = req.body;
 
     const isHuman = await verifyTurnstile(turnstile);
     if (!isHuman) {
@@ -105,13 +105,14 @@ exports.sendSamplesEmail = onRequest({ secrets: ['EMAIL_PASSWORD', 'TURNSTILE_SE
       to: 'contact@daruimrenastere.ro',
       replyTo: email,
       subject: `Cerere mostre de la ${name}`,
-      text: `Nume: ${name}\nE-mail: ${email}\nTelefon: ${phone}\nLocalitate: ${city}`,
+      text: `Nume: ${name}\nE-mail: ${email}\nTelefon: ${phone}\nLocalitate: ${city}\nRecomandat(ă) de: ${referredBy || 'Nespecificat'}`,
       html: `
         <h2>Cerere nouă pentru mostre</h2>
         <p><strong>Nume:</strong> ${name}</p>
         <p><strong>E-mail:</strong> ${email}</p>
         <p><strong>Telefon:</strong> ${phone}</p>
         <p><strong>Localitate:</strong> ${city}</p>
+        <p><strong>Recomandat(ă) de:</strong> ${referredBy || 'Nespecificat'}</p>
       `,
     };
 

@@ -107,6 +107,7 @@ export class Enroll implements OnInit, AfterViewInit, OnDestroy {
     email: ['', [Validators.required, Validators.email]],
     phone: ['',[Validators.required, Validators.pattern(/^\+?[\d\s-]{7,15}$/)]],
     city: ['', Validators.required],
+    referredBy: [''],
     confirmNotTested: [false, Validators.requiredTrue],
     confirmNoMentor: [false, Validators.requiredTrue],
     turnstile: ['', Validators.required],
