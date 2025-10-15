@@ -82,7 +82,7 @@ export class GiveRenaissance implements OnInit {
       title: 'Evenimente „Dăruim Renaștere”',
       description:
         'Descoperă întâlniri dedicate sănătății, echilibrului și reconectării cu natura.',
-      url: 'https://daruimrenastere.ro/daruim-renastere',
+      url: 'https://daruimrenastere.ro/evenimente-daruim-renastere',
     });
   }
 
