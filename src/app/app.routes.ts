@@ -3,8 +3,8 @@ import { authGuard } from '@shared/services/auth/auth-guard';
 
 export const routes: Routes = [
     { path: 'despre-noi', loadComponent: () => import('./about-us/about-us').then(c => c.AboutUs) },
-    { path: 'daruim-renastere', loadComponent: () => import('./events/give-renaissance/give-renaissance').then(c => c.GiveRenaissance) },
-    { path: 'darul-animalelor', loadComponent: () => import('./events/gift-of-animals/gift-of-animals').then(c => c.GiftOfAnimals) },
+    { path: 'evenimente-daruim-renastere', loadComponent: () => import('./events/give-renaissance/give-renaissance').then(c => c.GiveRenaissance) },
+    { path: 'evenimente-darul-animalelor', loadComponent: () => import('./events/gift-of-animals/gift-of-animals').then(c => c.GiftOfAnimals) },
     { path: 'evenimente-inregistrate', loadComponent: () => import('./events/video-recordings/video-recordings').then(c => c.VideoRecordings) },
     { path: 'testimoniale', loadComponent: () => import('./testimonials/testimonials').then(c => c.Testimonials) },
     { path: 'contact', loadComponent: () => import('./contact/contact').then(c => c.Contact) },

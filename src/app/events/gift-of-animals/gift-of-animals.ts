@@ -82,7 +82,7 @@ export class GiftOfAnimals implements OnInit {
       title: 'Evenimente „Darul Animalelor”',
       description:
         'Descoperă întâlniri dedicate sănătății și echilibrului prietenilor noștri necuvântători, cu ajutorul uleiurilor esențiale doTERRA.',
-      url: 'https://daruimrenastere.ro/darul-animalelor',
+      url: 'https://daruimrenastere.ro/evenimente-darul-animalelor',
     });
   }
 
