@@ -3,9 +3,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
     "paths": {
-      "@shared/*": ["app/shared/*"]
+      "@shared/*": ["./src/app/shared/*"],
+      "environments/*": ["./src/environments/*"]
     },
     "strict": true,
     "noImplicitOverride": true,

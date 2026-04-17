@@ -9,7 +9,7 @@ const routes = [
   '/despre-noi/',
   '/contact/',
   '/evenimente-daruim-renastere/',
-  '/evenimente-darul-animalelor/',
+  // '/evenimente-darul-animalelor/',
   '/evenimente-inregistrate/',
   '/testimoniale/',
   '/contact/',

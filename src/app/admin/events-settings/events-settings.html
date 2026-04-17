@@ -15,13 +15,13 @@
 
 @if (activeTab === 0) {
   <form [formGroup]="eventForm" (ngSubmit)="saveEvent()" class="event-form">
-    <mat-form-field appearance="outline" class="full-width">
+    <!-- <mat-form-field appearance="outline" class="full-width">
       <mat-label>Tipul Evenimentului</mat-label>
       <mat-select formControlName="eventType">
         <mat-option value="eventsGiveRenaissance" class="mentor__dropdown-option">Dăruim Renaștere</mat-option>
         <mat-option value="eventsGiftOfAnimals" class="mentor__dropdown-option">Darul Animalelor</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Titlu</mat-label>
@@ -175,7 +175,7 @@
 @let vmGiveRenaissance = vmGiveRenaissance$ | async;
 @let vmEventsGiftOfAnimals = vmGiftOfAnimals$ | async;
 @if (activeTab === 1 && vmGiveRenaissance && vmEventsGiftOfAnimals) {
-  <div class="events-settings__tabs events-settings__tabs--align-left">
+  <!-- <div class="events-settings__tabs events-settings__tabs--align-left">
     <button
       class="events-settings__tabs__button"
       [class.active]="eventTypeActiveTab === 0"
@@ -188,7 +188,7 @@
       (click)="setEventTypeActiveTab(1)">
       Darul Animalelor
     </button>
-  </div>
+  </div> -->
   <div class="events-settings__table__wrapper">
     <table mat-table [dataSource]="eventTypeActiveTab === 0 ? vmGiveRenaissance : vmEventsGiftOfAnimals" class="mat-elevation-z8 events-settings__table">
         <ng-container matColumnDef="title">

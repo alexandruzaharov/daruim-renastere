@@ -17,6 +17,13 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "pica",
+              "glightbox",
+              "moment",
+              "@grpc/grpc-js",
+              "@grpc/proto-loader"
+            ],
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"

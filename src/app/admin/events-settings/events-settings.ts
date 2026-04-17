@@ -72,7 +72,7 @@ export class EventsSettings implements OnInit {
 
   constructor() {
     this.eventForm = this.fb.group({
-      eventType: ['', Validators.required],
+      eventType: ['eventsGiveRenaissance', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
       hosts: this.fb.array([this.fb.control('', Validators.required)]),
@@ -214,12 +214,12 @@ export class EventsSettings implements OnInit {
   }
 
   public async saveEvent() {
-    this.isSubmitting = true;
-    this.cdr.detectChanges();
     if (!this.smallFile || !this.largeFile) {
       alert('Selectează o imagine înainte de a salva');
       return;
     }
+    this.isSubmitting = true;
+    this.cdr.detectChanges();
 
     const storage = getStorage();
 
@@ -297,7 +297,13 @@ export class EventsSettings implements OnInit {
       });
     }
 
-    this.eventForm.reset();
+    this.eventForm.reset({
+      eventType: 'eventsGiveRenaissance',
+      online: true
+    });
+    while (this.hosts.length > 1) {
+      this.hosts.removeAt(this.hosts.length - 1);
+    }
     this.isSubmitting = false;
     this.selectedFile = null;
     this.imagePreview = null;
