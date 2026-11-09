@@ -69,6 +69,23 @@ npm run watch
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Deploy
+
+Most common case: deploy only the website (Firebase Hosting), e.g. after adding images to `public/` or changing frontend code:
+
+```bash
+npm run build
+firebase deploy --only hosting
+```
+
+`npm run build` is required because Firebase Hosting serves `dist/daruim-renastere/browser`, not `public/`. It also regenerates the sitemap (`postbuild`).
+
+If the Cloud Functions in `functions/` were changed too:
+
+```bash
+firebase deploy --only functions
+```
+
 ## Running unit tests
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
